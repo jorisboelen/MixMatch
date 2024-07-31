@@ -1,0 +1,59 @@
+<div *ngIf="playlist && playlist_export" class="container">
+  <div class="row py-4">
+    <div class="col mx-auto">
+      <h1>
+        {{ playlist.name }}
+        <small class="bi bi-three-dots clickable" id="action-1" data-bs-toggle="dropdown" aria-expanded="false"></small>
+        <ul class="dropdown-menu" aria-labelledby="action-1">
+          <li><a class="dropdown-item" href="{{ playlist_export }}" download="{{ playlist.name }}.txt" target="_blank">Export</a></li>
+          <li><button class="dropdown-item" (click)="openPlaylistEditModal(playlist)">Edit</button></li>
+          <li><button class="dropdown-item" (click)="openPlaylistDeleteModal(playlist)">Delete</button></li>
+        </ul>
+      </h1>
+      <p class="h6 text-muted" data-bs-toggle="tooltip" title="created {{ playlist.created | date : 'medium' }} / modified {{ playlist.modified | date : 'medium' }}">
+        modified: {{ playlist.modified | date : 'medium' }}
+      </p>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="playlist" class="container">
+    <table class="table table-light table-hover table-sm">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Artist</th>
+        <th>Title</th>
+        <th class="d-none d-lg-table-cell">Genre</th>
+        <th class="d-none d-lg-table-cell">Year</th>
+        <th class="d-none d-sm-table-cell">BPM</th>
+        <th class="d-none d-sm-table-cell">Key</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+      </tr>
+      </thead>
+      <tbody cdkDropList id="playlist_item_rows" (cdkDropListDropped)="changeOrder($any($event))">
+
+      <tr *ngFor="let playlist_item of playlist.playlist_items" cdkDrag cdkDragLockAxis="y">
+        <td>{{ playlist_item.order }}</td>
+        <td><a routerLink="/music/{{playlist_item.music.id}}" class="link-dark text-decoration-none">{{ playlist_item.music.artist }}</a></td>
+        <td><a routerLink="/music/{{playlist_item.music.id}}" class="link-dark text-decoration-none">{{ playlist_item.music.title }}</a></td>
+        <td class="d-none d-lg-table-cell">{{ playlist_item.music.genre.name }}</td>
+        <td class="d-none d-lg-table-cell">{{ playlist_item.music.date }}</td>
+        <td class="d-none d-sm-table-cell">{{ playlist_item.music.bpm }}</td>
+        <td class="d-none d-sm-table-cell">{{ playlist_item.music.key }}</td>
+        <td><span class="bi bi-arrows-move clickable" aria-hidden="true"></span></td>
+        <td>
+          <div class="dropdown">
+            <span class="bi bi-three-dots clickable" id="action" data-bs-toggle="dropdown" aria-expanded="false"></span>
+            <ul class="dropdown-menu" aria-labelledby="action">
+              <li><button class="dropdown-item" (click)="openPlaylistItemDeleteModal(playlist_item)">Delete</button></li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+    <button id="playlist_items_order_save" class="btn btn-primary" (click)="saveOrder()">Save Order</button>
+</div>

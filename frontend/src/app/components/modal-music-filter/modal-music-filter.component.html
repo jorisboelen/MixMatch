@@ -1,0 +1,56 @@
+<form (ngSubmit)="activeModal.close()">
+  <div class="modal-header">
+    <h4 class="modal-title text-truncate" id="modal-basic-title">Search Music</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <p class="input-group">
+      <span class="input-group-text" style="width: 75px">artist</span>
+      <input class="form-control me-2" type="search" aria-label="artist" id="id_artist" name="artist" maxlength="200" [(ngModel)]="search_query.artist">
+    </p>
+    <p class="input-group">
+      <span class="input-group-text" style="width: 75px">title</span>
+      <input class="form-control me-2" type="search" aria-label="title" id="id_title" name="title" maxlength="200" [(ngModel)]="search_query.title">
+    </p>
+    <p class="input-group">
+      <span class="input-group-text" style="width: 75px">genre</span>
+      <select class="form-select" aria-label="genre" name="genre" id="id_genre" [(ngModel)]="search_query.genre_id">
+        <option *ngFor="let genre of genre_list" [value]="genre.id">{{ genre.name }}</option>
+      </select>
+    </p>
+    <p class="input-group">
+      <span class="input-group-text" style="width: 75px">year</span>
+      <input class="form-control" type="number" min="0" max="3000" placeholder="lowest" aria-label="lowest" id="id_year_lowest" name="year_lowest" [(ngModel)]="search_query.year_lowest">
+      <span class="input-group-text">to</span>
+      <input class="form-control" type="number" min="0" max="3000" placeholder="highest" aria-label="highest" id="id_year_highest" name="year_highest" [(ngModel)]="search_query.year_highest">
+    </p>
+    <p class="input-group">
+      <span class="input-group-text" style="width: 75px">bpm</span>
+      <input class="form-control" type="number" min="0" max="999" placeholder="lowest" aria-label="lowest" id="id_bpm_lowest" name="bpm_lowest" [(ngModel)]="search_query.bpm_lowest">
+      <span class="input-group-text">to</span>
+      <input class="form-control" type="number" min="0" max="999" placeholder="highest" aria-label="highest" id="id_bpm_highest" name="bpm_highest" [(ngModel)]="search_query.bpm_highest">
+    </p>
+    <p class="input-group">
+      <span class="input-group-text" style="width: 75px">key</span>
+      <select class="form-select" size="3" multiple aria-label="key" name="key" [(ngModel)]="search_query.key">
+        <option *ngFor="let key of key_list" [value]="key">{{ key }}</option>
+      </select>
+      <span class="input-group-text">
+        <input class="form-check-input" type="checkbox" value="True" id="id_include_compatible_keys" name="include_compatible_keys" [(ngModel)]="search_query.include_compatible_keys">
+      </span>
+      <span class="input-group-text">
+      compatible keys
+    </span>
+    </p>
+    <p class="input-group">
+      <span class="input-group-text" style="width: 75px">rating</span>
+      <input class="form-control form-control" type="number" min="0" max="5" placeholder="lowest" aria-label="lowest" id="id_rating_lowest" name="rating_lowest" [(ngModel)]="search_query.rating_lowest">
+      <span class="input-group-text">to</span>
+      <input class="form-control form-control" type="number" min="0" max="5" placeholder="highest" aria-label="highest" id="id_rating_highest" name="rating_highest" [(ngModel)]="search_query.rating_highest">
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Close</button>
+    <button type="submit" ngbAutofocus class="btn btn-primary">Search</button>
+  </div>
+</form>

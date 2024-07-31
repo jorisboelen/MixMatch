@@ -1,0 +1,16 @@
+<form (ngSubmit)="activeModal.close()">
+  <div class="modal-header">
+    <h4 class="modal-title text-truncate" id="modal-basic-title">Edit Playlist</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <p class="input-group">
+      <span class="input-group-text" style="width: 75px">name</span>
+      <input type="text" name="name" id="id_name" class="form-control" maxlength="100" required [(ngModel)]="playlist.name">
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Close</button>
+    <button type="submit" ngbAutofocus class="btn btn-primary">Save</button>
+  </div>
+</form>

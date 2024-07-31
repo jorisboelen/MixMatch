@@ -1,0 +1,10 @@
+<app-navbar [hidden]="location.path() == '/login'"></app-navbar>
+
+<main class="container-xxl mb-5">
+    <app-toast-notification aria-live="polite" aria-atomic="true"></app-toast-notification>
+    <router-outlet></router-outlet>
+</main>
+
+<footer class="footer fixed-bottom bg-dark">
+  <app-audio-player></app-audio-player>
+</footer>

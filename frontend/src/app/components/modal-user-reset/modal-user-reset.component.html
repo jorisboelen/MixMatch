@@ -1,0 +1,16 @@
+<form (ngSubmit)="activeModal.close()">
+  <div class="modal-header">
+    <h4 class="modal-title text-truncate" id="modal-basic-title">Reset Password</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <p class="input-group">
+      <span class="input-group-text" style="width: 100px">password</span>
+      <input type="password" class="form-control" name="password" id="id_password" maxlength="128" required [(ngModel)]="user.password">
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Close</button>
+    <button type="submit" ngbAutofocus class="btn btn-primary">Save</button>
+  </div>
+</form>

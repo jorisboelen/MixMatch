@@ -1,0 +1,5 @@
+<ngb-rating [(rate)]="music_item.rating" [max]="5" [resettable]="true" (rateChange)="updateRating(music_item)">
+  <ng-template let-fill="fill">
+    <i class="bi bi-star{{fill === 100 ? '-fill' : ''}}"></i>
+  </ng-template>
+</ngb-rating>

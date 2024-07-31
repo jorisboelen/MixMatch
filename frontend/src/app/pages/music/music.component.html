@@ -1,0 +1,54 @@
+<div class="text-center container">
+  <div class="row py-4">
+    <div class="col mx-auto">
+      <button type="button" [ngClass]="filter_enabled ? 'btn btn-primary bi bi-filter me-1' : 'btn btn-outline-primary bi bi-filter me-1'" (click)="openFilterModal()"> Filter</button>
+      <button type="button" class="btn btn-outline-primary me-1" (click)="reset()">Reset</button>
+    </div>
+  </div>
+</div>
+
+<table class="table table-light table-hover table-sm">
+  <thead>
+  <tr>
+    <th><app-button-toggle-order [label]="'Artist'" [field]="'artist'" [current_sort_by]="search_query.sort_by" (toggleOrderingEvent)="toggleOrdering($event)"></app-button-toggle-order></th>
+    <th><app-button-toggle-order [label]="'Title'" [field]="'title'" [current_sort_by]="search_query.sort_by" (toggleOrderingEvent)="toggleOrdering($event)"></app-button-toggle-order></th>
+    <th class="d-none d-lg-table-cell">Genre</th>
+    <th class="d-none d-lg-table-cell"><app-button-toggle-order [label]="'Year'" [field]="'date'" [current_sort_by]="search_query.sort_by" (toggleOrderingEvent)="toggleOrdering($event)"></app-button-toggle-order></th>
+    <th class="d-none d-sm-table-cell"><app-button-toggle-order [label]="'BPM'" [field]="'bpm'" [current_sort_by]="search_query.sort_by" (toggleOrderingEvent)="toggleOrdering($event)"></app-button-toggle-order></th>
+    <th class="d-none d-sm-table-cell"><app-button-toggle-order [label]="'Key'" [field]="'key'" [current_sort_by]="search_query.sort_by" (toggleOrderingEvent)="toggleOrdering($event)"></app-button-toggle-order></th>
+    <th class="d-none d-xl-table-cell"><app-button-toggle-order [label]="'Rating'" [field]="'rating'" [current_sort_by]="search_query.sort_by" (toggleOrderingEvent)="toggleOrdering($event)"></app-button-toggle-order></th>
+    <th>&nbsp;</th>
+  </tr>
+  </thead>
+  <tbody *ngIf="music_list">
+  <tr *ngFor="let music of music_list.items">
+    <td><a class="link-dark text-decoration-none" routerLink="/music/{{music.id}}">{{ music.artist }}</a></td>
+    <td><a class="link-dark text-decoration-none" routerLink="/music/{{music.id}}">{{ music.title }}</a></td>
+    <td class="d-none d-lg-table-cell">{{ music.genre.name }}</td>
+    <td class="d-none d-lg-table-cell">{{ music.date }}</td>
+    <td class="d-none d-sm-table-cell">{{ music.bpm }}</td>
+    <td class="d-none d-sm-table-cell">{{ music.key }}</td>
+    <td class="d-none d-xl-table-cell"><app-button-rating [music_item]="music" (updateMusicItemRatingEvent)="updateMusicItemRating($event)"></app-button-rating></td>
+    <td>
+      <div *ngIf="isAdminUser()" class="dropdown">
+        <button class="bi bi-three-dots page-link" id="action" data-bs-toggle="dropdown" aria-expanded="false"></button>
+        <ul class="dropdown-menu" aria-labelledby="action">
+          <li><button class="dropdown-item" (click)="openPlaylistItemAddModal(music)">Add to Playlist</button></li>
+          <li><a class="dropdown-item" routerLink="/music/{{music.id}}/edit">Edit</a></li>
+          <li><button class="dropdown-item" (click)="openMusicDeleteModal(music)">Delete</button></li>
+        </ul>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<nav aria-label="music pagination">
+  <app-pagination
+    *ngIf="music_list"
+    [current_page]="current_page"
+    [items_count]="music_list.total"
+    [items_per_page]="music_list.size"
+    (changePageEvent)="changePage($event)">
+  </app-pagination>
+</nav>

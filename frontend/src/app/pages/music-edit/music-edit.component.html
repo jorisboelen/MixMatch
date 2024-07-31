@@ -1,0 +1,69 @@
+<div *ngIf="music_item" class="container">
+  <div class="row py-4">
+    <div class="col mx-auto">
+      <h1>{{ music_item.artist }} - {{ music_item.title }}</h1>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="music_item" class="container">
+  <div class="row align-items-center">
+    <div class="col-lg-4 col-xxl-3 mb-3">
+      <div class="card mx-auto" style="width: 300px;">
+        <img src="{{ music_item_cover }}" class="card-img-top" alt="cover">
+        <div class="card-body"></div>
+      </div>
+    </div>
+    <div class="col-lg-8 col-xxl-9">
+      <form (ngSubmit)="updateMusicItem(music_item)">
+        <div class="row mb-3">
+          <label for="id_artist" class="col-sm-2 col-form-label">Artist</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="id_artist" name="artist" maxlength="200" [(ngModel)]="music_item.artist">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="id_title" class="col-sm-2 col-form-label">Title</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="id_title" name="title" maxlength="200" [(ngModel)]="music_item.title">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="id_album" class="col-sm-2 col-form-label">Album</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="id_album" name="album" maxlength="200" [(ngModel)]="music_item.album">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="id_genre" class="col-sm-2 col-form-label">Genre</label>
+          <div class="col-sm-10">
+            <select class="form-select" aria-label="Genre" name="genre" id="id_genre" [(ngModel)]="music_item.genre.id">
+              <option *ngFor="let genre of genre_list" [value]="genre.id">{{ genre.name }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="id_date" class="col-sm-2 col-form-label">Year</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="id_date" name="date" maxlength="10" [(ngModel)]="music_item.date">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="id_cover" class="col-sm-2 col-form-label">Cover</label>
+          <div class="col-sm-10">
+            <input type="file" class="form-control" id="id_cover" name="cover" accept="image/*" (change)="updateMusicItemCover(music_item, $event)">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="id_rating" class="col-sm-2 col-form-label">Rating</label>
+          <div class="col-sm-10">
+            <select class="form-select" id="id_rating" name="rating" [(ngModel)]="music_item.rating">
+              <option *ngFor="let rating of [1,2,3,4,5]" value="{{ rating }}">{{ rating }}</option>
+            </select>
+          </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Save">
+      </form>
+    </div>
+  </div>
+</div>

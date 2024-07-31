@@ -1,0 +1,17 @@
+<div class="d-flex justify-content-center">
+  <ngb-pagination
+    [collectionSize]="items_count"
+    [pageSize]="items_per_page"
+    [(page)]="current_page"
+    [ellipses]="false"
+    (pageChange)="changePage(current_page)"
+    aria-label="pagination">
+
+    <ng-template ngbPaginationPrevious>Previous</ng-template>
+    <ng-template ngbPaginationPages let-page let-pages="pages">
+      <span class="page-link">{{ page }} of {{ pages.length }}</span>
+    </ng-template>
+    <ng-template ngbPaginationNext>Next</ng-template>
+
+  </ngb-pagination>
+</div>

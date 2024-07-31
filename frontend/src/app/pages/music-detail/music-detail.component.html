@@ -1,0 +1,38 @@
+<div *ngIf="music_item" class="container">
+  <div class="row py-4">
+    <div class="col mx-auto">
+      <h1>
+        {{ music_item.artist }} - {{ music_item.title }}
+        <small *ngIf="isAdminUser()" class="bi bi-three-dots clickable" id="action" data-bs-toggle="dropdown" aria-expanded="false"></small>
+        <ul class="dropdown-menu" aria-labelledby="action">
+          <li><button class="dropdown-item" (click)="openPlaylistItemAddModal(music_item)">Add to Playlist</button></li>
+          <li><a class="dropdown-item" routerLink="/music/{{music_item.id}}/edit">Edit</a></li>
+          <li><button class="dropdown-item" (click)="openMusicDeleteModal(music_item)">Delete</button></li>
+        </ul>
+      </h1>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="music_item && music_item_cover && music_item_media" class="container">
+  <div class="row align-items-center">
+    <div class="col-lg-4 col-xxl-3 mb-3">
+      <div class="card mx-auto" style="width: 300px;">
+        <img src="{{ music_item_cover }}" class="card-img-top" alt="cover">
+        <div class="card-body text-center">
+          <div class="d-grid gap-2">
+            <button class="btn btn-light bi bi-play-circle" (click)="playStream(music_item_media)"> Play</button>
+            <a class="btn btn-light bi bi-download" href="{{ music_item_media }}" download="{{ music_item.artist }} - {{ music_item.title }}.{{ music_item.type | lowercase }}" target="_blank"> Download</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8 col-xxl-9">
+      <app-music-item-table
+        [music_item]="music_item"
+        [music_item_media]="music_item_media"
+        (updateMusicItemRatingEvent)="updateMusicItemRating($event)"
+      ></app-music-item-table>
+    </div>
+  </div>
+</div>

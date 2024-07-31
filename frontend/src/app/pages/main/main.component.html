@@ -1,0 +1,47 @@
+<div class="text-center container">
+  <div class="row py-4">
+    <div class="col mx-auto">
+      <app-button-stats
+        *ngIf="music_count"
+        [label]="'Music'"
+        [count]="music_count.total"
+        [routerLinkText]="'/music'"
+      ></app-button-stats>
+      <app-button-stats
+        *ngIf="playlist_count"
+        [label]="'Playlists'"
+        [count]="playlist_count.total"
+        [routerLinkText]="'/playlist'"
+      ></app-button-stats>
+    </div>
+  </div>
+</div>
+
+<div class="album">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <div class="col">
+        <app-music-list
+          *ngIf="music_modified"
+          [label]="'Recently Modified'"
+          [musicListResponse]="music_modified"
+        ></app-music-list>
+      </div>
+      <div class="col">
+        <app-music-list
+          *ngIf="music_new"
+          [label]="'New Releases'"
+          [musicListResponse]="music_new"
+        ></app-music-list>
+      </div>
+      <div class="col">
+        <app-music-list
+          *ngIf="music_rated"
+          [label]="'Highest Rated'"
+          [musicListResponse]="music_rated"
+        ></app-music-list>
+      </div>
+    </div>
+  </div>
+</div>
+
