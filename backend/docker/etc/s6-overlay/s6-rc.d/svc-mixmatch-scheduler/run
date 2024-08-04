@@ -1,0 +1,4 @@
+#!/command/with-contenv bash
+# shellcheck shell=bash
+
+cd ${BASE_DIRECTORY} && s6-setuidgid mixmatch mixmatch run scheduler
