@@ -22,7 +22,7 @@ jobs:
             - uses: actions/upload-artifact@v4
               with:
                   name: backend
-                  path: backend/dist/pixelperfect-*.tar.gz
+                  path: backend/dist/mixmatch-*.tar.gz
                   if-no-files-found: error
                   overwrite: true
     docker:
