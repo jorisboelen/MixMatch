@@ -35,3 +35,23 @@ jobs:
                   docker build --pull -t "${{ vars.DOCKERHUB_NAMESPACE }}/${{ vars.DOCKERHUB_REPOSITORY_BACKEND }}:latest" .
                   docker push "${{ vars.DOCKERHUB_NAMESPACE }}/${{ vars.DOCKERHUB_REPOSITORY_BACKEND }}:latest"
               if: github.ref_type == 'tag'
+
+    frontend:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./frontend
+        steps:
+            -   uses: actions/checkout@v4
+            -   uses: actions/setup-node@v4
+                with:
+                    node-version: 18.x
+            -   run: npm install -g @angular/cli
+            -   run: npm install
+            -   run: ng build
+#            -   uses: actions/upload-artifact@v4
+#                with:
+#                    name: frontend
+#                    path: frontend/dist/pixelperfect/browser/
+#                    if-no-files-found: error
+#                    overwrite: true
