@@ -16,5 +16,5 @@ User gid:    $(id -g mixmatch)
 -------------------------------------
 "
 
-chown mixmatch:mixmatch ${BASE_DIRECTORY}
-chown mixmatch:mixmatch -R ${IMAGE_DIRECTORY}
+mkdir -p {/etc/nginx,/usr/share/nginx,/var/lib/nginx,/var/tmp/nginx}
+chown mixmatch:mixmatch -R {/etc/nginx,/usr/share/nginx,/var/lib/nginx,/var/tmp/nginx}

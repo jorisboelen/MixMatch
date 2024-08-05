@@ -15,7 +15,7 @@ from .utils import merge_task_results
 
 
 @celery.task()
-def task_cleanup(path=settings.MEDIA_DIRECTORY, db: Session = next(get_db())):
+def task_cleanup(path=settings.IMAGE_DIRECTORY, db: Session = next(get_db())):
     logger = logging.getLogger(__name__)
     music_in_db = crud.get_music_items(db)
     covers_in_db = [m.cover for m in music_in_db]

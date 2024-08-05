@@ -1,0 +1,10 @@
+[template]
+src = "nginx-default.conf.tmpl"
+dest = "/etc/nginx/conf.d/default.conf"
+owner = "mixmatch"
+mode = "0644"
+keys = [
+    "/mixmatch/hostname",
+    "/mixmatch/proxyprotocol",
+    "/mixmatch/ssl/selfsigned",
+]

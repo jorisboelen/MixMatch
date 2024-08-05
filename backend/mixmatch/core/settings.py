@@ -12,7 +12,7 @@ APPLICATION_ASSETS_DIRECTORY = path.join(APPLICATION_BASE_DIRECTORY, "assets")
 class Settings(BaseSettings):
     BASE_DIRECTORY: DirectoryPath = path.join(Path.home(), '.mixmatch')
     CORS_ALLOWED_ORIGINS: list[str] = []
-    MEDIA_DIRECTORY: DirectoryPath = path.join(BASE_DIRECTORY, 'media')
+    IMAGE_DIRECTORY: DirectoryPath = path.join(BASE_DIRECTORY, 'image')
     MUSIC_DIRECTORY: DirectoryPath = path.join(Path.home(), 'Music')
     SESSION_EXPIRE_SECONDS: int = 60 * 24 * 60  # 60 days
 
@@ -57,4 +57,4 @@ class Settings(BaseSettings):
 
 settings = Settings(_env_file=('development.env', 'settings.env'), _env_file_encoding='utf-8')
 makedirs(settings.BASE_DIRECTORY, exist_ok=True)
-makedirs(settings.MEDIA_DIRECTORY, exist_ok=True)
+makedirs(settings.IMAGE_DIRECTORY, exist_ok=True)

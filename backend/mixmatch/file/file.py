@@ -98,7 +98,7 @@ class MixMatchFile(ABC):
     def save_cover(self):
         cover_data, cover_mime = self._get_cover_data_from_tags()
         if cover_data and cover_mime:
-            cover_file = open(join(settings.MEDIA_DIRECTORY, str(uuid4()) + guess_extension(cover_mime)), 'wb')
+            cover_file = open(join(settings.IMAGE_DIRECTORY, str(uuid4()) + guess_extension(cover_mime)), 'wb')
             cover_file.write(cover_data)
             cover_file.close()
             self.cover = basename(cover_file.name)

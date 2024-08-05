@@ -43,7 +43,7 @@ def read_music_item_cover(music_id: int, db: Session = Depends(get_db)):
     elif music_item.cover:
         headers = {'Content-Disposition': f'attachment; filename={str(music_item.cover)}',
                    'X-Accel-Redirect': f'/media/{str(music_item.cover)}'}
-        return FileResponse(path.join(settings.MEDIA_DIRECTORY, str(music_item.cover)), headers=headers)
+        return FileResponse(path.join(settings.IMAGE_DIRECTORY, str(music_item.cover)), headers=headers)
     else:
         headers = {'Content-Disposition': 'attachment; filename=cover.png'}
         return FileResponse(path.join(APPLICATION_ASSETS_DIRECTORY, "cover.png"), headers=headers)
