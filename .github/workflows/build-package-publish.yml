@@ -26,14 +26,14 @@ jobs:
                   password: ${{ secrets.DOCKERHUB_PASSWORD }}
             - run: python setup.py sdist
             - run: |
-                  docker build --pull -t "${{ vars.DOCKERHUB_NAMESPACE }}/${{ vars.DOCKERHUB_REPOSITORY }}:${{ github.sha }}" .
-                  docker push "${{ vars.DOCKERHUB_NAMESPACE }}/${{ vars.DOCKERHUB_REPOSITORY }}:${{ github.sha }}"
+                  docker build --pull -t "${{ vars.DOCKERHUB_NAMESPACE }}/${{ DOCKERHUB_REPOSITORY }}:${{ github.sha }}" .
+                  docker push "${{ vars.DOCKERHUB_NAMESPACE }}/${{ DOCKERHUB_REPOSITORY }}:${{ github.sha }}"
               if: github.ref_type == 'branch'
             - run: |
-                  docker build --pull -t "${{ vars.DOCKERHUB_NAMESPACE }}/${{ vars.DOCKERHUB_REPOSITORY }}:${{ github.ref_name }}" .
-                  docker push "${{ vars.DOCKERHUB_NAMESPACE }}/${{ vars.DOCKERHUB_REPOSITORY }}:${{ github.ref_name }}"
+                  docker build --pull -t "${{ vars.DOCKERHUB_NAMESPACE }}/${{ DOCKERHUB_REPOSITORY }}:${{ github.ref_name }}" .
+                  docker push "${{ vars.DOCKERHUB_NAMESPACE }}/${{ DOCKERHUB_REPOSITORY }}:${{ github.ref_name }}"
               if: github.ref_type == 'tag'
             - run: |
-                  docker build --pull -t "${{ vars.DOCKERHUB_NAMESPACE }}/${{ vars.DOCKERHUB_REPOSITORY }}:latest" .
-                  docker push "${{ vars.DOCKERHUB_NAMESPACE }}/${{ vars.DOCKERHUB_REPOSITORY }}:latest"
+                  docker build --pull -t "${{ vars.DOCKERHUB_NAMESPACE }}/${{ DOCKERHUB_REPOSITORY }}:latest" .
+                  docker push "${{ vars.DOCKERHUB_NAMESPACE }}/${{ DOCKERHUB_REPOSITORY }}:latest"
               if: github.ref_type == 'tag'
