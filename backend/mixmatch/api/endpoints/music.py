@@ -42,7 +42,7 @@ def read_music_item_cover(music_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Music item not found")
     elif music_item.cover:
         headers = {'Content-Disposition': f'attachment; filename={str(music_item.cover)}',
-                   'X-Accel-Redirect': f'/media/{str(music_item.cover)}'}
+                   'X-Accel-Redirect': f'/image/{str(music_item.cover)}'}
         return FileResponse(path.join(settings.IMAGE_DIRECTORY, str(music_item.cover)), headers=headers)
     else:
         headers = {'Content-Disposition': 'attachment; filename=cover.png'}
@@ -70,8 +70,8 @@ def read_music_item_media(music_id: int, db: Session = Depends(get_db)):
     if not music_item:
         raise HTTPException(status_code=404, detail="Music item not found")
     else:
-        headers = {'Content-Disposition': f'attachment; filename={path.relpath(music_item.path, settings.MUSIC_DIRECTORY)}',
-                   'X-Accel-Redirect': f'/music/{path.basename(music_item.path)}'}
+        headers = {'Content-Disposition': f'attachment; filename={path.basename(music_item.path)}',
+                   'X-Accel-Redirect': f'/music/{path.relpath(music_item.path, settings.MUSIC_DIRECTORY)}'}
         return FileResponse(path=music_item.path, headers=headers)
 
 
