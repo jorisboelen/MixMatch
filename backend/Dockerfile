@@ -17,7 +17,7 @@ RUN tar -C / -Jxpf /tmp/s6-overlay-x86_64.tar.xz
 WORKDIR /data
 
 # install pip package
-COPY mixmatch-*.tar.gz .
+COPY dist/mixmatch-*.tar.gz .
 RUN pip install --no-cache-dir mixmatch-*.tar.gz && rm -f mixmatch-*.tar.gz
 
 # copy root overlay
