@@ -10,9 +10,9 @@ APPLICATION_ASSETS_DIRECTORY = path.join(APPLICATION_BASE_DIRECTORY, "assets")
 
 
 class Settings(BaseSettings):
-    BASE_DIRECTORY: DirectoryPath = path.join(Path.home(), '.mixmatch')
+    BASE_DIRECTORY: Path = path.join(Path.home(), '.mixmatch')
     CORS_ALLOWED_ORIGINS: list[str] = []
-    IMAGE_DIRECTORY: DirectoryPath = path.join(BASE_DIRECTORY, 'image')
+    IMAGE_DIRECTORY: Path = path.join(BASE_DIRECTORY, 'image')
     MUSIC_DIRECTORY: DirectoryPath = path.join(Path.home(), 'Music')
     SESSION_EXPIRE_SECONDS: int = 60 * 24 * 60  # 60 days
 
