@@ -27,6 +27,6 @@ COPY docker /
 RUN useradd -u 911 -U -d ${BASE_DIRECTORY} mixmatch && \
     usermod -G users mixmatch
 
+HEALTHCHECK CMD curl --fail http://localhost:8000/api/health || exit 1
 EXPOSE 8000/tcp
-
 ENTRYPOINT ["/init"]

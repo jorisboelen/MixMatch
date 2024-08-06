@@ -9,7 +9,7 @@ from mixmatch.db.models import UserSession
 
 SESSION_TOKEN_LIST = {}
 AUTH_INCLUDED_PREFIX = '/api/'
-AUTH_EXCLUDED_URLS = ['/api/login', '/api/logout', '/api/docs', '/api/openapi.json']
+AUTH_EXCLUDED_URLS = ['/api/health', '/api/login', '/api/logout', '/api/docs', '/api/openapi.json']
 
 
 class SessionCookieMiddleware(BaseHTTPMiddleware):

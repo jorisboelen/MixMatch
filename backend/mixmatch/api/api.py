@@ -1,7 +1,8 @@
 from fastapi import APIRouter
-from mixmatch.api.endpoints import login, genre, music, playlist, playlist_item, task, user
+from mixmatch.api.endpoints import genre, health, login, music, playlist, playlist_item, task, user
 
 api_router = APIRouter()
+api_router.include_router(health.router)
 api_router.include_router(login.router)
 api_router.include_router(genre.router, prefix="/genre")
 api_router.include_router(music.router, prefix="/music")

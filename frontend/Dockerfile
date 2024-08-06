@@ -39,5 +39,7 @@ RUN \
   -q -O /usr/bin/confd && \
   chmod 0755 /usr/bin/confd
 
+EXPOSE 443/tcp
+
 ENTRYPOINT ["/init"]
 CMD []
