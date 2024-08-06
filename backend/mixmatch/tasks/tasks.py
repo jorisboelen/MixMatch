@@ -31,8 +31,8 @@ def task_cleanup(path=settings.IMAGE_DIRECTORY, db: Session = next(get_db())):
     return {'removed': result_removed}
 
 
-@celery.task()
-def subtask_import_file(file: str, db: Session = next(get_db())):
+@celery.task(bind=True)
+def subtask_import_file(self, file: str, db: Session = next(get_db())):
     logger = logging.getLogger(__name__)
     logger.info(f'Processing File :: {file}')
 
@@ -62,9 +62,9 @@ def subtask_import_file(file: str, db: Session = next(get_db())):
     except MixMatchFileError as e:
         result['skipped'] = 1
         logger.warning(f"[skipping] {str(e)}")
-    except (psycopg2.errors.UniqueViolation, sqlalchemy.exc.IntegrityError):
+    except (psycopg2.errors.UniqueViolation, sqlalchemy.exc.IntegrityError) as exc:
         db.rollback()
-        subtask_import_file(file)
+        raise self.retry(exc=exc, countdown=1, max_retries=3)
     return result
 
 
