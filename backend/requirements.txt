@@ -3,12 +3,12 @@ argon2-cffi==23.1.0
 celery[sqlalchemy]==5.4.0
 click==8.1.7
 essentia==2.1b6.dev1110
-fastapi==0.110.1
-fastapi-pagination==0.12.24
+fastapi==0.112.0
+fastapi-pagination==0.12.26
 mutagen==1.47.0
 numpy<2.0.0  # required for essentia==2.1b6.dev1110
 psycopg2-binary==2.9.9
-pydantic-settings==2.2.1
+pydantic-settings==2.4.0
 python-multipart==0.0.9
-sqlmodel==0.0.16
-uvicorn[standard]==0.29.0
+sqlmodel==0.0.21
+uvicorn[standard]==0.30.5
