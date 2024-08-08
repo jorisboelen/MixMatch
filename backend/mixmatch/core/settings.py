@@ -41,7 +41,7 @@ class Settings(BaseSettings):
     RABBITMQ_HOST: str = 'mixmatch-rabbitmq'
     RABBITMQ_PORT: int = 5672
     RABBITMQ_DEFAULT_USER: str = 'guest'
-    RABBITMQ_PASSWORD: str = 'guest'
+    RABBITMQ_DEFAULT_PASS: str = 'guest'
 
     @computed_field
     @property
@@ -49,7 +49,7 @@ class Settings(BaseSettings):
         return MultiHostUrl.build(
             scheme=self.RABBITMQ_SCHEME,
             username=self.RABBITMQ_DEFAULT_USER,
-            password=self.RABBITMQ_PASSWORD,
+            password=self.RABBITMQ_DEFAULT_PASS,
             host=self.RABBITMQ_HOST,
             port=self.RABBITMQ_PORT
         )
