@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from base64 import b64decode, b64encode
+from base64 import b64decode
 from json import loads
 from mimetypes import guess_extension
 from mixmatch.core.settings import settings
@@ -97,8 +97,9 @@ class MixMatchFile(ABC):
 
     def save_cover(self):
         cover_data, cover_mime = self._get_cover_data_from_tags()
-        if cover_data and cover_mime:
-            cover_file = open(join(settings.IMAGE_DIRECTORY, str(uuid4()) + guess_extension(cover_mime)), 'wb')
+        if cover_data and cover_mime and guess_extension(cover_mime, strict=False):
+            cover_file_extension = guess_extension(cover_mime, strict=False)
+            cover_file = open(join(settings.IMAGE_DIRECTORY, str(uuid4()) + cover_file_extension), 'wb')
             cover_file.write(cover_data)
             cover_file.close()
             self.cover = basename(cover_file.name)

@@ -65,6 +65,9 @@ def subtask_import_file(self, file: str, db: Session = next(get_db())):
     except (psycopg2.errors.UniqueViolation, sqlalchemy.exc.IntegrityError) as exc:
         db.rollback()
         raise self.retry(exc=exc, countdown=1, max_retries=3)
+    except Exception as e:
+        result['skipped'] = 1
+        logger.error(f'An unexpected error occurred while processing: {file}. Error: {str(e)}')
     return result
 
 
