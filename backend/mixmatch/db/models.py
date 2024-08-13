@@ -77,8 +77,8 @@ class MusicSearchQuery(SQLModel):
     artist: str | None = None
     title: str | None = None
     genre_id: int | None = None
-    year_lowest: int | None = None
-    year_highest: int | None = None
+    year_lowest: str | None = None
+    year_highest: str | None = None
     bpm_lowest: int | None = None
     bpm_highest: int | None = None
     key: list[str] | None = None
