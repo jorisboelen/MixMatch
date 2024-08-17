@@ -22,7 +22,9 @@ jobs:
               with:
                   username: ${{ secrets.DOCKERHUB_USERNAME }}
                   password: ${{ secrets.DOCKERHUB_PASSWORD }}
-            - run: python setup.py sdist
+            - run: |
+                  pip install build
+                  python -m build
             - run: |
                   docker build --pull -t "${{ vars.DOCKERHUB_NAMESPACE }}/${{ vars.DOCKERHUB_REPOSITORY_BACKEND }}:${{ github.sha }}" .
                   docker push "${{ vars.DOCKERHUB_NAMESPACE }}/${{ vars.DOCKERHUB_REPOSITORY_BACKEND }}:${{ github.sha }}"

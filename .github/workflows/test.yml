@@ -17,4 +17,4 @@ jobs:
                   python-version: 3.11
             - run: |
                   pip install pip-audit
-                  pip-audit -r requirements.txt --progress-spinner off
+                  pip-audit . --progress-spinner off
