@@ -84,3 +84,4 @@ backend/celerybeat-schedule.dir
 
 # Test Docker Compose
 docker-compose.yml
+docker-compose-test.yml

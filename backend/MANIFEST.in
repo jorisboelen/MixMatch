@@ -1,4 +1,3 @@
-include requirements.txt
 include mixmatch/alembic.ini
 recursive-include mixmatch/alembic *
 recursive-include mixmatch/assets *
