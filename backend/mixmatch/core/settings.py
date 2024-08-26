@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     CORS_ALLOWED_ORIGINS: list[str] = []
     IMAGE_DIRECTORY: Path = path.join(BASE_DIRECTORY, 'image')
     MUSIC_DIRECTORY: DirectoryPath = path.join(Path.home(), 'Music')
-    SESSION_EXPIRE_SECONDS: int = 60 * 24 * 60  # 60 days
+    SESSION_EXPIRE_SECONDS: int = 3600 * 24 * 60  # 60 days
 
     # database settings
     POSTGRES_SCHEME: Literal['postgresql'] = 'postgresql'
