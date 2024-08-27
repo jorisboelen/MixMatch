@@ -114,6 +114,7 @@ class MixMatchFile(ABC):
         self.title = music_data.get('title', self.title)
         self.album = music_data.get('album', self.album)
         self.genre = music_data.get('genre', self.genre)
+        self.date = music_data.get('date', self.date)
         self._update_music_data_in_tags()
         self._mutagen_file.save()
         self.save_cover()

@@ -80,7 +80,7 @@ def patch_music_item(music_id: int, music_item: MusicUpdate, db: Session = Depen
     db_music_item = crud.get_music_item(db=db, music_id=music_id)
     if not db_music_item:
         raise HTTPException(status_code=404, detail="Music item not found")
-    if 'genre_id' not in music_item:
+    if not music_item.genre_id:
         genre = crud.get_genre(db=db, genre_id=db_music_item.genre_id)
     else:
         genre = crud.get_genre(db=db, genre_id=music_item.genre_id)
