@@ -34,8 +34,8 @@ server {
     }
 
     location /image/ {
-	    internal;
-	    root /data;
+        internal;
+        root /data;
         client_max_body_size 512m;
         send_timeout 36000s;
     }
