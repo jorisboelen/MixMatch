@@ -266,7 +266,7 @@ export class MixMatchService {
   }
 
   private handleEvent(message: string): void {
-    this.notification.addNotification(NotificationLevel.INFO, message)
+    this.notification.addNotification(NotificationLevel.INFO, message);
   }
 
   private handleError(error: HttpErrorResponse) {

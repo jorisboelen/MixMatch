@@ -81,9 +81,9 @@ export class PlaylistDetailComponent {
     if (this.playlist) {
       for (let i = 0; i < this.playlist.playlist_items.length; i++) {
         this.playlist.playlist_items[i].order = i + 1;
-        this.mixmatchService.patchPlaylistItem(this.playlist.playlist_items[i].id, {order: i + 1}).subscribe()
+        this.mixmatchService.patchPlaylistItem(this.playlist.playlist_items[i].id, {order: i + 1}).subscribe();
       }
-      this.notification.addNotification(NotificationLevel.INFO, 'Changes saved')
+      this.notification.addNotification(NotificationLevel.INFO, 'Changes saved');
     }
   }
 }

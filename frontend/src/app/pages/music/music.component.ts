@@ -40,8 +40,8 @@ export class MusicComponent {
   }
 
   initMusicSearchQuery(){
-    let local_current_page = localStorage.getItem('music_current_page')
-    let local_search_query = localStorage.getItem('music_search_query')
+    let local_current_page = localStorage.getItem('music_current_page');
+    let local_search_query = localStorage.getItem('music_search_query');
     if (local_current_page){this.current_page = JSON.parse(local_current_page);}
     if (local_search_query){this.search_query = JSON.parse(local_search_query); this.filter_enabled = true;}
   }
@@ -110,11 +110,11 @@ export class MusicComponent {
     if (this.search_query.sort_by == ordering){this.search_query.sort_order = this.search_query.sort_order == 'asc' ? 'desc' : 'asc';}
     else {this.search_query.sort_by = ordering; this.search_query.sort_order = 'asc';}
     localStorage.setItem('music_search_query', JSON.stringify(this.search_query));
-    this.getMusic()
+    this.getMusic();
   }
 
   addPlaylistItem(playlist_item: PlaylistItemModel){
-    this.mixmatchService.addPlaylistItem(playlist_item).subscribe()
+    this.mixmatchService.addPlaylistItem(playlist_item).subscribe();
   }
 
   deleteMusicItem(music_item: MusicItem){
@@ -122,7 +122,7 @@ export class MusicComponent {
   }
 
   getMusic(){
-    let params = {size: this.current_size, page: this.current_page}
+    let params = {size: this.current_size, page: this.current_page};
     let music_search_query = JSON.parse(JSON.stringify(this.search_query));
     this.mixmatchService.searchMusic(params, music_search_query).subscribe((music_list) => (this.music_list = music_list));
   }

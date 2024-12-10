@@ -11,7 +11,7 @@ export class NotificationService {
 
   addNotification(level: NotificationLevel, message: string): void {
     let notification: NotificationMessage = {level: level, message: message, timestamp: new Date()};
-    this.notification_list.push(notification)
+    this.notification_list.push(notification);
   }
 
   getNotifications(): NotificationMessage[] {

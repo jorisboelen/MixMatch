@@ -61,7 +61,7 @@ export class MusicDetailComponent {
   }
 
   addPlaylistItem(playlist_item: PlaylistItemModel){
-    this.mixmatchService.addPlaylistItem(playlist_item).subscribe()
+    this.mixmatchService.addPlaylistItem(playlist_item).subscribe();
   }
 
   deleteMusicItem(music_item: MusicItem){
