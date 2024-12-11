@@ -4,8 +4,10 @@ FROM python:3.11
 ENV BASE_DIRECTORY=/data
 ENV IMAGE_DIRECTORY=/data/image
 ENV MUSIC_DIRECTORY=/data/music
+ENV MIXMATCH_ENABLE_API=true
 ENV MIXMATCH_ENABLE_MIGRATE=true
-ENV MIXMATCH_ENABLE_SERVER=true
+ENV MIXMATCH_ENABLE_SCHEDULER=true
+ENV MIXMATCH_ENABLE_WORKER=true
 ENV S6_OVERLAY_VERSION=3.2.0.2
 
 # s6 overlay
@@ -28,6 +30,6 @@ COPY docker /
 RUN useradd -u 911 -U -d ${BASE_DIRECTORY} mixmatch && \
     usermod -G users mixmatch
 
-HEALTHCHECK CMD curl --fail http://localhost:8000/api/health || exit 1
+HEALTHCHECK CMD ["bash", "/etc/health_check.sh"]
 EXPOSE 8000/tcp
 ENTRYPOINT ["/init"]
