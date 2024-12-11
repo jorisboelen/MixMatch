@@ -1,6 +1,6 @@
 from os import makedirs, path
 from pathlib import Path
-from pydantic import AmqpDsn, DirectoryPath, PostgresDsn, computed_field
+from pydantic import AmqpDsn, DirectoryPath, Field, PostgresDsn, computed_field
 from pydantic_core import MultiHostUrl
 from pydantic_settings import BaseSettings
 from typing import Literal
@@ -11,7 +11,7 @@ APPLICATION_ASSETS_DIRECTORY = path.join(APPLICATION_BASE_DIRECTORY, "assets")
 
 class Settings(BaseSettings):
     BASE_DIRECTORY: Path = path.join(Path.home(), '.mixmatch')
-    CORS_ALLOWED_ORIGINS: list[str] = []
+    CORS_ALLOWED_ORIGINS: list[str] = Field(default_factory=list)
     IMAGE_DIRECTORY: Path = path.join(BASE_DIRECTORY, 'image')
     MUSIC_DIRECTORY: DirectoryPath = path.join(Path.home(), 'Music')
     SESSION_EXPIRE_SECONDS: int = 3600 * 24 * 60  # 60 days

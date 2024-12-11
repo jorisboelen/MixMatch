@@ -5,7 +5,7 @@ ENV BASE_DIRECTORY=/data
 ENV IMAGE_DIRECTORY=/data/image
 ENV MUSIC_DIRECTORY=/data/music
 ENV MIXMATCH_ENABLE_MIGRATE=true
-ENV S6_OVERLAY_VERSION=3.2.0.0
+ENV S6_OVERLAY_VERSION=3.2.0.2
 
 # s6 overlay
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
