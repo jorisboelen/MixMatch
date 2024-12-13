@@ -10,6 +10,7 @@ dependencies = [
     "alembic==1.13.2",
     "argon2-cffi==23.1.0",
     "celery[sqlalchemy]==5.4.0",
+    "cron-validator==1.0.8",
     "click==8.1.7",
     "essentia==2.1b6.dev1110",
     "fastapi==0.112.0",

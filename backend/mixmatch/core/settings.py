@@ -4,6 +4,7 @@ from pydantic import AmqpDsn, DirectoryPath, Field, PostgresDsn, computed_field
 from pydantic_core import MultiHostUrl
 from pydantic_settings import BaseSettings
 from typing import Literal
+from .types import CronExpression
 
 APPLICATION_BASE_DIRECTORY = Path(__file__).resolve().parent.parent
 APPLICATION_ASSETS_DIRECTORY = path.join(APPLICATION_BASE_DIRECTORY, "assets")
@@ -53,6 +54,10 @@ class Settings(BaseSettings):
             host=self.RABBITMQ_HOST,
             port=self.RABBITMQ_PORT
         )
+
+    # celery job settings
+    TASK_CLEANUP_CRON: CronExpression = '0 1 1 * *'
+    TASK_IMPORT_CRON: CronExpression = '0 1 * * *'
 
 
 settings = Settings(_env_file=('development.env', 'settings.env'), _env_file_encoding='utf-8')

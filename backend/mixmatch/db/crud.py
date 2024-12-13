@@ -183,7 +183,7 @@ def update_playlist_item(db: Session, playlist_item: PlaylistItem, playlist_item
 
 
 def get_tasks(db: Session):
-    statement = select(Task).where(Task.schedule != None).order_by(Task.id)
+    statement = select(Task).order_by(Task.id)
     return db.exec(statement).all()
 
 

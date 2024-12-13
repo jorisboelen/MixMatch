@@ -23,13 +23,11 @@ def upgrade() -> None:
     op.bulk_insert(Task.__table__, [
         {
             'id': 'mixmatch.tasks.tasks.task_import',
-            'name': 'Perform import of music files',
-            'schedule': 'Every Hour'
+            'name': 'Perform import of music files'
         },
         {
             'id': 'mixmatch.tasks.tasks.task_cleanup',
-            'name': 'Cleanup unused cover files',
-            'schedule': 'Every Month'
+            'name': 'Cleanup unused cover files'
         }
     ])
 

@@ -31,16 +31,18 @@
     <thead>
     <tr>
       <th>Name</th>
-      <th>Schedule</th>
-      <th class="d-none d-lg-table-cell">Last run</th>
+      <th class="d-none d-lg-table-cell">Completed</th>
+      <th class="d-none d-lg-table-cell">Result</th>
+      <th class="d-none d-lg-table-cell">Status</th>
       <th>&nbsp;</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let task of task_list">
       <td><a routerLink="/manage/task/{{task.id}}/detail" class="link-dark text-decoration-none">{{ task.name }}</a></td>
-      <td><a routerLink="/manage/task/{{task.id}}/detail" class="link-dark text-decoration-none">{{ task.schedule }}</a></td>
       <td class="d-none d-lg-table-cell"><a *ngIf="task.results.length" routerLink="/manage/task/{{task.id}}/detail" class="link-dark text-decoration-none">{{ task.results[0].completed | date : 'medium' }}</a></td>
+      <td class="d-none d-lg-table-cell"><a *ngIf="task.results.length" routerLink="/manage/task/{{task.id}}/detail" class="link-dark text-decoration-none">{{ task.results[0].result }}</a></td>
+      <td class="d-none d-lg-table-cell"><a *ngIf="task.results.length" routerLink="/manage/task/{{task.id}}/detail" class="link-dark text-decoration-none">{{ task.results[0].state }}</a></td>
       <td><span class="bi bi-play-circle clickable" (click)="runTask(task)"></span></td>
     </tr>
     </tbody>

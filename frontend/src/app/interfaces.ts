@@ -67,7 +67,6 @@ export interface NotificationMessage {
 export interface Task {
   id: string;
   name: string;
-  schedule: string;
   results: Array<TaskResult>;
 }
 

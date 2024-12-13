@@ -164,7 +164,8 @@ export class MixMatchService {
   getTasks(): Observable<Task[]> {
     let apiUrl = this.apiBaseUrl + '/task/';
     return this.http.get<Task[]>(apiUrl, {withCredentials: true}).pipe(
-      catchError(this.handleError.bind(this))
+      catchError(this.handleError.bind(this)),
+      repeat({ count: 300, delay: 3_000 }),
     );
   }
 
@@ -179,7 +180,7 @@ export class MixMatchService {
     let apiUrl = this.apiBaseUrl + '/task/running';
     return this.http.get<TaskRunning[]>(apiUrl, {withCredentials: true}).pipe(
       catchError(this.handleError.bind(this)),
-      repeat({ delay: 3_000 }),
+      repeat({ count: 300, delay: 3_000 }),
     );
   }
 

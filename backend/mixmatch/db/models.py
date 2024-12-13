@@ -164,7 +164,6 @@ class PlaylistItemUpdate(PlaylistItemBase):
 class TaskBase(SQLModel):
     id: str = Field(primary_key=True, max_length=50)
     name: str = Field(nullable=False)
-    schedule: str = Field(nullable=True, max_length=32)
 
 
 class Task(TaskBase, table=True):
