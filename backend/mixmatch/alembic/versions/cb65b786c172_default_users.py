@@ -7,6 +7,7 @@ Create Date: 2024-07-14 20:57:05.509375
 """
 from argon2 import PasswordHasher
 from mixmatch.db.models import User
+from os import environ
 from typing import Sequence, Union
 
 from alembic import op
@@ -23,7 +24,7 @@ def upgrade() -> None:
     op.bulk_insert(User.__table__, [
         {
             'username': 'mixmatch',
-            'password': PasswordHasher().hash('mixmatch'),
+            'password': PasswordHasher().hash(environ.get('INITIAL_PASSWORD_ADMIN', 'mixmatch')),
             'is_admin': 1
         }
     ])
