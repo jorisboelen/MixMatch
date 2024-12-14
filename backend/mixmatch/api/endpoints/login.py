@@ -10,7 +10,6 @@ from mixmatch.core.settings import settings
 from mixmatch.db import crud
 from mixmatch.db.database import get_db
 from mixmatch.db.models import UserLogin, UserSession
-from mixmatch.security.middleware import SESSION_TOKEN_LIST
 
 router = APIRouter()
 
@@ -27,7 +26,7 @@ def login(user: UserLogin, response: Response, db: Session = Depends(get_db)):
                 crud.update_user_password(db=db, db_user=db_user, hashed_password=ph.hash(user.password))
             token = UserSession(token=token_hex(), username=user.username,
                                 expires=datetime.now() + timedelta(seconds=settings.SESSION_EXPIRE_SECONDS))
-            SESSION_TOKEN_LIST[token.token] = token
+            crud.create_user_session(db=db, user_session=token)
             response.set_cookie(key="session_token", value=token.token, expires=settings.SESSION_EXPIRE_SECONDS)
             return token
     except VerifyMismatchError:
@@ -35,7 +34,7 @@ def login(user: UserLogin, response: Response, db: Session = Depends(get_db)):
 
 
 @router.post("/logout", status_code=204)
-def logout(response: Response, session_token: Annotated[str | None, Cookie()] = None):
+def logout(response: Response, session_token: Annotated[str | None, Cookie()] = None, db: Session = Depends(get_db)):
     if session_token:
-        SESSION_TOKEN_LIST.pop(session_token)
+        crud.remove_user_session(db=db, session_token=session_token)
         response.delete_cookie(key="session_token")

@@ -1,13 +1,15 @@
+from cachetools import cached, TTLCache
 from datetime import datetime, timedelta
 from fastapi_pagination.ext.sqlalchemy import paginate
 from itertools import chain
 from sqlalchemy.sql.expression import func
 from sqlmodel import Session, or_, select
 
+from mixmatch.db.database import get_db
 from mixmatch.db.filters.sorting import music_sort, playlist_sort
 from mixmatch.db.functions import unaccent
 from mixmatch.db.models import Genre, Music, MusicSearchQuery, Playlist, PlaylistItem, PlaylistSearchQuery
-from mixmatch.db.models import Task, TaskResult, User
+from mixmatch.db.models import Task, TaskResult, User, UserSession
 from mixmatch.core.utils import get_compatible_keys
 
 
@@ -251,3 +253,26 @@ def update_user_password(db: Session, db_user: User, hashed_password: str):
     db.commit()
     db.refresh(db_user)
     return db_user
+
+
+def get_user_session(db: Session, session_token: str):
+    return db.get(UserSession, session_token)
+
+
+@cached(TTLCache(maxsize=1024, ttl=30))
+def get_user_session_cached(session_token: str):
+    return get_user_session(db=next(get_db()), session_token=session_token)
+
+
+def create_user_session(db: Session, user_session: UserSession):
+    db.add(user_session)
+    db.commit()
+    db.refresh(user_session)
+    return user_session
+
+
+def remove_user_session(db: Session, session_token: str):
+    user_session = db.get(UserSession, session_token)
+    if user_session:
+        db.delete(user_session)
+        db.commit()

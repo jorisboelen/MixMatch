@@ -227,7 +227,8 @@ class UserLogin(SQLModel):
     password: str
 
 
-class UserSession(SQLModel):
-    token: str
-    username: str
-    expires: datetime
+class UserSession(SQLModel, table=True):
+    __tablename__ = "user_sessions"
+    token: str = Field(primary_key=True, max_length=64)
+    username: str = Field(foreign_key="user.username")
+    expires: datetime = Field(index=True)
