@@ -14,8 +14,7 @@ from sqlmodel import Session
 from .utils import merge_task_results
 
 
-@celery.task()
-def task_cleanup(path=settings.IMAGE_DIRECTORY, db: Session = next(get_db())):
+def task_cleanup_covers(path=settings.IMAGE_DIRECTORY, db: Session = next(get_db())):
     logger = logging.getLogger(__name__)
     music_in_db = crud.get_music_items(db)
     covers_in_db = [m.cover for m in music_in_db]
@@ -28,7 +27,42 @@ def task_cleanup(path=settings.IMAGE_DIRECTORY, db: Session = next(get_db())):
             result_removed += 1
             cover.unlink()
 
-    return {'removed': result_removed}
+    return {'covers': result_removed}
+
+
+def task_cleanup_user_sessions(db: Session = next(get_db())):
+    logger = logging.getLogger(__name__)
+    expired_user_sessions = crud.get_user_sessions_expired(db)
+    result_removed = 0
+
+    for expired_user_session in expired_user_sessions:
+        logger.info(f"Removing Expired User Session :: {expired_user_session.token}")
+        crud.remove_user_session(db, expired_user_session.token)
+        result_removed += 1
+
+    return {'user_sessions': result_removed}
+
+
+def task_cleanup_task_results(db: Session = next(get_db())):
+    logger = logging.getLogger(__name__)
+    crud.update_task_results_stale(db)
+    expired_task_results = crud.get_task_results_older_than_days(db, 30)
+    result_removed = 0
+
+    for expired_task_result in expired_task_results:
+        logger.info(f"Removing Task Result :: {expired_task_result.id}")
+        crud.remove_task_result(db, expired_task_result)
+        result_removed += 1
+
+    return {'task_results': result_removed}
+
+
+@celery.task()
+def task_cleanup():
+    result_covers = task_cleanup_covers()
+    result_user_sessions = task_cleanup_user_sessions()
+    result_task_results = task_cleanup_task_results()
+    return {**result_covers, **result_user_sessions, **result_task_results}
 
 
 @celery.task(bind=True)

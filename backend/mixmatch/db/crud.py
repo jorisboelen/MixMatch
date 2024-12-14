@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from fastapi_pagination.ext.sqlalchemy import paginate
 from itertools import chain
 from sqlalchemy.sql.expression import func
-from sqlmodel import Session, or_, select
+from sqlmodel import Session, and_, or_, select
 
 from mixmatch.db.database import get_db
 from mixmatch.db.filters.sorting import music_sort, playlist_sort
@@ -204,6 +204,11 @@ def get_task_result(db: Session, task_result_id: str):
     return db.get(TaskResult, task_result_id)
 
 
+def get_task_results_older_than_days(db: Session, days: int):
+    statement = select(TaskResult).where(TaskResult.completed <= datetime.now() - timedelta(days=days))
+    return db.exec(statement).all()
+
+
 def create_task_result(db: Session, task_result: TaskResult):
     db.add(task_result)
     db.commit()
@@ -217,6 +222,23 @@ def update_task_result(db: Session, task_result: TaskResult, task_result_data: d
     db.commit()
     db.refresh(task_result)
     return task_result
+
+
+def update_task_results_stale(db: Session):
+    statement = select(TaskResult).where(and_(TaskResult.started <= datetime.now() - timedelta(days=1),
+                                              TaskResult.state.notin_(['FAILURE', 'REVOKED', 'SUCCESS'])))
+    task_results = db.exec(statement).all()
+    for task_result in task_results:
+        task_result.state = 'TIMEOUT'
+        db.add(task_result)
+        db.commit()
+        db.refresh(task_result)
+    return task_results
+
+
+def remove_task_result(db: Session, task_result: TaskResult):
+    db.delete(task_result)
+    db.commit()
 
 
 def get_user(db: Session, username: str):
@@ -262,6 +284,11 @@ def get_user_session(db: Session, session_token: str):
 @cached(TTLCache(maxsize=1024, ttl=30))
 def get_user_session_cached(session_token: str):
     return get_user_session(db=next(get_db()), session_token=session_token)
+
+
+def get_user_sessions_expired(db: Session):
+    statement = select(UserSession).where(func.current_timestamp() > UserSession.expires)
+    return db.exec(statement).all()
 
 
 def create_user_session(db: Session, user_session: UserSession):

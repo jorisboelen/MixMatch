@@ -27,7 +27,7 @@ def upgrade() -> None:
         },
         {
             'id': 'mixmatch.tasks.tasks.task_cleanup',
-            'name': 'Cleanup unused cover files'
+            'name': 'Cleanup (covers, user sessions, task results)'
         }
     ])
 
