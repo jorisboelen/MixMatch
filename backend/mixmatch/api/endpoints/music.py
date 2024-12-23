@@ -88,7 +88,8 @@ def patch_music_item(music_id: int, music_item: MusicUpdate, db: Session = Depen
     music_file.update_music_data(music_data={**music_item.model_dump(exclude_unset=True), **{'genre': genre.name}})
     return crud.update_music_item(db=db, music_item=db_music_item,
                                   music_item_data={**music_file.to_dict(), **{'genre': genre},
-                                                   **{'rating': music_item.rating or db_music_item.rating}})
+                                                   **{'rating': music_item.rating if music_item.rating >=0
+                                                   else db_music_item.rating}})
 
 
 @router.delete("/{music_id}", dependencies=[Depends(admin_permissions)], status_code=204)
