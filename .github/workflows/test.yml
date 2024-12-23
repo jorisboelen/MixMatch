@@ -5,16 +5,22 @@ on:
     workflow_dispatch:
 
 jobs:
-    backend:
+    tox:
         runs-on: ubuntu-latest
         defaults:
             run:
                 working-directory: ./backend
+        strategy:
+            matrix:
+                version: [ "3.10", "3.11", "3.12", "3.13" ]
         steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-python@v5
-              with:
-                  python-version: 3.11
-            - run: |
-                  pip install pip-audit
-                  pip-audit . --progress-spinner off
+            -   uses: actions/checkout@v4
+            -   uses: actions/setup-python@v5
+                with:
+                    python-version: ${{ matrix.version }}
+            -   uses: hoverkraft-tech/compose-action@v2.0.2
+                with:
+                    compose-file: "./tests/docker/docker-compose.yml"
+            -   run: |
+                    pip install .[dev]
+                    tox -q
