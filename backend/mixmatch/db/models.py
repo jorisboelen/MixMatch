@@ -59,7 +59,7 @@ class MusicUpdate(SQLModel):
 
 class MusicRead(MusicBase):
     id: int
-    genre: GenreRead
+    genre: GenreRead | None
 
 
 class MusicSearchQuerySortByEnum(str, Enum):

@@ -26,7 +26,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["bump-my-version==0.18.3"]
+dev = ["bump-my-version==0.18.3", "httpx==0.28.0", "pytest==8.3.4", "tox==4.23.2", "Faker==33.1.0"]
 
 [project.scripts]
 mixmatch = "mixmatch.__main__:main"
@@ -48,3 +48,13 @@ replace = "version = \"{new_version}\""
 filename = "mixmatch/__init__.py"
 search = "__version__ = '{current_version}'"
 replace = "__version__ = '{new_version}'"
+
+[tool.tox]
+requires = ["tox>=4.23"]
+env_list = ["3.10", "3.11", "3.12", "3.13"]
+
+[tool.tox.env_run_base]
+description = "run unit tests"
+extras = ["dev"]
+set_env = {BASE_DIRECTORY="{envtmpdir}", IMAGE_DIRECTORY="{envtmpdir}/images", MUSIC_DIRECTORY="{envtmpdir}"}
+commands = [["pytest", "tests"]]

@@ -18,7 +18,7 @@ def read_genres(db: Session = Depends(get_db)):
 
 @router.post("/", response_model=GenreRead, dependencies=[Depends(admin_permissions)], status_code=201)
 def create_genre(genre: GenreCreate, db: Session = Depends(get_db)):
-    return crud.create_genre(db=db, genre=Genre.model_validate(genre))
+    return crud.get_or_create_genre(db=db, genre=Genre.model_validate(genre))
 
 
 @router.get("/{genre_id}", response_model=GenreRead, status_code=200)

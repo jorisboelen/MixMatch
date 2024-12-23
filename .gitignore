@@ -39,6 +39,9 @@ wheels/
 venv/
 ENV/
 
+# tox
+.tox
+
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
