@@ -229,6 +229,7 @@ def update_task_results_stale(db: Session):
                                               TaskResult.state.notin_(['FAILURE', 'REVOKED', 'SUCCESS'])))
     task_results = db.exec(statement).all()
     for task_result in task_results:
+        task_result.completed = datetime.now()
         task_result.state = 'TIMEOUT'
         db.add(task_result)
         db.commit()

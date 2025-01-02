@@ -12,7 +12,8 @@ TASK_PREFIX = 'mixmatch.tasks.tasks.task_'
 @before_task_publish.connect()
 def before_task_publish_handler(headers=None, **kwargs):
     if headers.get('task').startswith(TASK_PREFIX):
-        task_result = TaskResult(id=headers.get('id'), task_id=headers.get('task'), state=states.PENDING)
+        task_result = TaskResult(id=headers.get('id'), task_id=headers.get('task'),
+                                 state=states.PENDING, started=datetime.now())
         crud.create_task_result(db=next(get_db()), task_result=task_result)
 
 
@@ -20,7 +21,7 @@ def before_task_publish_handler(headers=None, **kwargs):
 def task_prerun_handler(task_id=None, task=None, **kwargs):
     db = next(get_db())
     if task.name.startswith(TASK_PREFIX):
-        task_result = TaskResult(id=task_id, task_id=task.name, state=states.STARTED, started=datetime.now())
+        task_result = TaskResult(id=task_id, task_id=task.name, state=states.STARTED)
         db_task_result = crud.get_task_result(db=db, task_result_id=task_id)
         crud.update_task_result(db=db, task_result=db_task_result,
                                 task_result_data=task_result.model_dump(exclude_unset=True))
