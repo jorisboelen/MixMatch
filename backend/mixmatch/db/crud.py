@@ -226,7 +226,7 @@ def update_task_result(db: Session, task_result: TaskResult, task_result_data: d
 
 def update_task_results_stale(db: Session):
     statement = select(TaskResult).where(and_(TaskResult.started <= datetime.now() - timedelta(days=1),
-                                              TaskResult.state.notin_(['FAILURE', 'REVOKED', 'SUCCESS'])))
+                                              TaskResult.state.notin_(['FAILURE', 'REVOKED', 'SUCCESS', 'TIMEOUT'])))
     task_results = db.exec(statement).all()
     for task_result in task_results:
         task_result.completed = datetime.now()
