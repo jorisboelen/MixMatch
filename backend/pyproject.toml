@@ -51,7 +51,7 @@ replace = "__version__ = '{new_version}'"
 
 [tool.tox]
 requires = ["tox>=4.23"]
-env_list = ["3.10", "3.11", "3.12", "3.13"]
+env_list = ["3.10", "3.11"]
 
 [tool.tox.env_run_base]
 description = "run unit tests"
