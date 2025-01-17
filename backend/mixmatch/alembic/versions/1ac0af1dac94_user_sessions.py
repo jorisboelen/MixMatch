@@ -25,7 +25,7 @@ def upgrade() -> None:
     sa.Column('token', sqlmodel.sql.sqltypes.AutoString(length=64), nullable=False),
     sa.Column('username', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
     sa.Column('expires', sa.DateTime(), nullable=False),
-    sa.ForeignKeyConstraint(['username'], ['user.username'], ),
+    sa.ForeignKeyConstraint(['username'], ['users.username'], ),
     sa.PrimaryKeyConstraint('token')
     )
     op.create_index(op.f('ix_user_sessions_expires'), 'user_sessions', ['expires'], unique=False)

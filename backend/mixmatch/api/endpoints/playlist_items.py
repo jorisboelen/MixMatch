@@ -15,16 +15,16 @@ router = APIRouter()
 @router.post("/", response_model=PlaylistItemRead, status_code=201)
 def create_playlist_item(current_user: Annotated[User | None, Depends(get_current_user)],
                          playlist_item: PlaylistItemCreate, db: Session = Depends(get_db)):
-    music_item = crud.get_music_item(db=db, music_id=playlist_item.music_id)
+    track = crud.get_track(db=db, track_id=playlist_item.track_id)
     playlist = crud.get_playlist(db=db, playlist_id=playlist_item.playlist_id, owner=current_user)
 
-    if not music_item:
-        raise HTTPException(status_code=404, detail="Music item not found")
+    if not track:
+        raise HTTPException(status_code=404, detail="Track not found")
     if not playlist:
         raise HTTPException(status_code=404, detail="Playlist not found")
 
     playlist = crud.update_playlist(db=db, playlist=playlist, playlist_data={'modified': func.now()})
-    return crud.create_playlist_item(db=db, playlist_item=PlaylistItem(playlist=playlist, music=music_item,
+    return crud.create_playlist_item(db=db, playlist_item=PlaylistItem(playlist=playlist, track=track,
                                                                        order=playlist_item.order))
 
 

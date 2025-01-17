@@ -6,9 +6,9 @@ from sqlalchemy.sql.expression import func
 from sqlmodel import Session, and_, or_, select
 
 from mixmatch.db.database import get_db
-from mixmatch.db.filters.sorting import music_sort, playlist_sort
+from mixmatch.db.filters.sorting import playlist_sort, track_sort
 from mixmatch.db.functions import unaccent
-from mixmatch.db.models import Genre, Music, MusicSearchQuery, Playlist, PlaylistItem, PlaylistSearchQuery
+from mixmatch.db.models import Genre, Playlist, PlaylistItem, PlaylistSearchQuery, Track, TrackSearchQuery
 from mixmatch.db.models import Task, TaskResult, User, UserSession
 from mixmatch.core.utils import get_compatible_keys
 
@@ -47,76 +47,76 @@ def remove_genre(db: Session, genre: Genre):
     db.commit()
 
 
-def get_music_item(db: Session, music_id: int):
-    return db.get(Music, music_id)
+def get_track(db: Session, track_id: int):
+    return db.get(Track, track_id)
 
 
-def get_music_item_by_path(db: Session, path: str):
-    statement = select(Music).where(Music.path == path)
+def get_track_by_path(db: Session, path: str):
+    statement = select(Track).where(Track.path == path)
     return db.exec(statement).first()
 
 
-def get_music_items(db: Session):
-    statement = select(Music).order_by(Music.artist).order_by(Music.title)
+def get_tracks(db: Session):
+    statement = select(Track).order_by(Track.artist).order_by(Track.title)
     return db.exec(statement).all()
 
 
-def get_music_items_paginated(db: Session):
-    statement = select(Music).order_by(Music.artist).order_by(Music.title)
+def get_tracks_paginated(db: Session):
+    statement = select(Track).order_by(Track.artist).order_by(Track.title)
     return paginate(db, statement)
 
 
-def search_music_items_paginated(db: Session, music_search_query: MusicSearchQuery):
-    statement = select(Music)
-    if music_search_query.artist:
-        statement = statement.filter(unaccent(Music.artist).icontains(music_search_query.artist))
-    if music_search_query.title:
-        statement = statement.filter(unaccent(Music.title).icontains(music_search_query.title))
-    if music_search_query.genre_id:
-        statement = statement.where(Music.genre_id == music_search_query.genre_id)
-    if music_search_query.year_lowest and music_search_query.year_highest:
-        statement = statement.where(Music.date >= music_search_query.year_lowest)
-        statement = statement.where(Music.date <= music_search_query.year_highest)
-    if music_search_query.bpm_lowest and music_search_query.bpm_highest:
-        statement = statement.where(Music.bpm >= music_search_query.bpm_lowest)
-        statement = statement.where(Music.bpm <= music_search_query.bpm_highest)
-    if music_search_query.key:
-        if music_search_query.include_compatible_keys:
-            compatible_keys = [get_compatible_keys(k, True) for k in music_search_query.key]
-            statement = statement.filter(Music.key.in_(list(chain.from_iterable(compatible_keys))))
+def search_tracks_paginated(db: Session, track_search_query: TrackSearchQuery):
+    statement = select(Track)
+    if track_search_query.artist:
+        statement = statement.filter(unaccent(Track.artist).icontains(track_search_query.artist))
+    if track_search_query.title:
+        statement = statement.filter(unaccent(Track.title).icontains(track_search_query.title))
+    if track_search_query.genre_id:
+        statement = statement.where(Track.genre_id == track_search_query.genre_id)
+    if track_search_query.year_lowest and track_search_query.year_highest:
+        statement = statement.where(Track.date >= track_search_query.year_lowest)
+        statement = statement.where(Track.date <= track_search_query.year_highest)
+    if track_search_query.bpm_lowest and track_search_query.bpm_highest:
+        statement = statement.where(Track.bpm >= track_search_query.bpm_lowest)
+        statement = statement.where(Track.bpm <= track_search_query.bpm_highest)
+    if track_search_query.key:
+        if track_search_query.include_compatible_keys:
+            compatible_keys = [get_compatible_keys(k, True) for k in track_search_query.key]
+            statement = statement.filter(Track.key.in_(list(chain.from_iterable(compatible_keys))))
         else:
-            statement = statement.filter(Music.key.in_(music_search_query.key))
-    if music_search_query.rating_lowest and music_search_query.rating_highest:
-        statement = statement.where(Music.rating >= music_search_query.rating_lowest)
-        statement = statement.where(Music.rating <= music_search_query.rating_highest)
-    if music_search_query.sort_by:
-        statement = music_sort(statement, music_search_query.sort_by, music_search_query.sort_order)
-    if music_search_query.random:
+            statement = statement.filter(Track.key.in_(track_search_query.key))
+    if track_search_query.rating_lowest and track_search_query.rating_highest:
+        statement = statement.where(Track.rating >= track_search_query.rating_lowest)
+        statement = statement.where(Track.rating <= track_search_query.rating_highest)
+    if track_search_query.sort_by:
+        statement = track_sort(statement, track_search_query.sort_by, track_search_query.sort_order)
+    if track_search_query.random:
         statement = statement.order_by(func.random())
     else:
-        statement = statement.order_by(Music.artist).order_by(Music.title)
+        statement = statement.order_by(Track.artist).order_by(Track.title)
     return paginate(db, statement)
 
 
-def create_music_item(db: Session, music_item: Music):
-    db.add(music_item)
+def create_track(db: Session, track: Track):
+    db.add(track)
     db.commit()
-    db.refresh(music_item)
-    return music_item
+    db.refresh(track)
+    return track
 
 
-def remove_music_item(db: Session, music_item: Music):
-    db.delete(music_item)
+def remove_track(db: Session, track: Track):
+    db.delete(track)
     db.commit()
 
 
-def update_music_item(db: Session, music_item: Music, music_item_data: dict[str, any]):
-    music_item.sqlmodel_update(music_item_data)
-    music_item.genre = music_item_data.get('genre')
-    db.add(music_item)
+def update_track(db: Session, track: Track, track_data: dict[str, any]):
+    track.sqlmodel_update(track_data)
+    track.genre = track_data.get('genre')
+    db.add(track)
     db.commit()
-    db.refresh(music_item)
-    return music_item
+    db.refresh(track)
+    return track
 
 
 def create_playlist(db: Session, playlist: Playlist, owner: User):

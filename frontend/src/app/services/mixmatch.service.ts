@@ -28,7 +28,7 @@ export class MixMatchService {
   }
 
   getGenre(): Observable<Genre[]> {
-    let apiUrl = this.apiBaseUrl + '/genre/';
+    let apiUrl = this.apiBaseUrl + '/genres/';
     return this.http.get<Genre[]>(apiUrl, {withCredentials: true}).pipe(
       catchError(this.handleError.bind(this))
     );
@@ -90,28 +90,28 @@ export class MixMatchService {
   }
 
   getPlaylist(playlist_id: number): Observable<Playlist> {
-    let apiUrl = this.apiBaseUrl + '/playlist/' + playlist_id ;
+    let apiUrl = this.apiBaseUrl + '/playlists/' + playlist_id ;
     return this.http.get<Playlist>(apiUrl, {withCredentials: true}).pipe(
       catchError(this.handleError.bind(this))
     );
   }
 
   getPlaylists(params = {}): Observable<PlaylistResponse> {
-    let apiUrl = this.apiBaseUrl + '/playlist/';
+    let apiUrl = this.apiBaseUrl + '/playlists/';
     return this.http.get<PlaylistResponse>(apiUrl, {withCredentials: true, params: new HttpParams({fromObject: params})}).pipe(
       catchError(this.handleError.bind(this))
     );
   }
 
   searchPlaylists(params = {}, playlist_search_query = {}): Observable<PlaylistResponse> {
-    let apiUrl = this.apiBaseUrl + '/playlist/search';
+    let apiUrl = this.apiBaseUrl + '/playlists/search';
     return this.http.post<PlaylistResponse>(apiUrl, playlist_search_query, {withCredentials: true, params: new HttpParams({fromObject: params})}).pipe(
       catchError(this.handleError.bind(this))
     );
   }
 
   addPlaylist(playlist: PlaylistModel): Observable<PlaylistModel> {
-    let apiUrl = this.apiBaseUrl + '/playlist/';
+    let apiUrl = this.apiBaseUrl + '/playlists/';
     return this.http.post<PlaylistModel>(apiUrl, playlist, {withCredentials: true, headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).pipe(
       tap(_ => this.handleEvent('Playlist created')),
       catchError(this.handleError.bind(this))
@@ -119,11 +119,11 @@ export class MixMatchService {
   }
 
   getPlaylistExport(playlist_id: number): string {
-    return this.apiBaseUrl + '/playlist/' + playlist_id + '/export';
+    return this.apiBaseUrl + '/playlists/' + playlist_id + '/export';
   }
 
   addPlaylistItem(playlist_item: PlaylistItemModel): Observable<PlaylistItemModel> {
-    let apiUrl = this.apiBaseUrl + '/playlist_item/';
+    let apiUrl = this.apiBaseUrl + '/playlist_items/';
     return this.http.post<PlaylistItemModel>(apiUrl, playlist_item, {withCredentials: true, headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).pipe(
       tap(_ => this.handleEvent('Item added to playlist')),
       catchError(this.handleError.bind(this))
@@ -131,7 +131,7 @@ export class MixMatchService {
   }
 
   deletePlaylist(playlist_id: number): Observable<Playlist> {
-    let apiUrl = this.apiBaseUrl + '/playlist/' + playlist_id;
+    let apiUrl = this.apiBaseUrl + '/playlists/' + playlist_id;
     return this.http.delete<Playlist>(apiUrl, {withCredentials: true, headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).pipe(
       tap(_ => this.handleEvent('Playlist removed')),
       catchError(this.handleError.bind(this))
@@ -139,7 +139,7 @@ export class MixMatchService {
   }
 
   deletePlaylistItem(playlist_item_id: number): Observable<PlaylistItem> {
-    let apiUrl = this.apiBaseUrl + '/playlist_item/' + playlist_item_id;
+    let apiUrl = this.apiBaseUrl + '/playlist_items/' + playlist_item_id;
     return this.http.delete<PlaylistItem>(apiUrl, {withCredentials: true, headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).pipe(
       tap(_ => this.handleEvent('Item removed from playlist')),
       catchError(this.handleError.bind(this))
@@ -147,7 +147,7 @@ export class MixMatchService {
   }
 
   patchPlaylist(playlist_id: number, playlist_data: Object): Observable<PlaylistResponse> {
-    let apiUrl = this.apiBaseUrl + '/playlist/' + playlist_id ;
+    let apiUrl = this.apiBaseUrl + '/playlists/' + playlist_id ;
     return this.http.patch<PlaylistResponse>(apiUrl, playlist_data, {withCredentials: true, headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).pipe(
       tap(_ => this.handleEvent('Changes saved')),
       catchError(this.handleError.bind(this))
@@ -155,14 +155,14 @@ export class MixMatchService {
   }
 
   patchPlaylistItem(playlist_item_id: number, playlist_item_data: Object): Observable<PlaylistItem> {
-    let apiUrl = this.apiBaseUrl + '/playlist_item/' + playlist_item_id;
+    let apiUrl = this.apiBaseUrl + '/playlist_items/' + playlist_item_id;
     return this.http.patch<PlaylistItem>(apiUrl, playlist_item_data, {withCredentials: true, headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).pipe(
       catchError(this.handleError.bind(this))
     );
   }
 
   getTasks(): Observable<Task[]> {
-    let apiUrl = this.apiBaseUrl + '/task/';
+    let apiUrl = this.apiBaseUrl + '/tasks/';
     return this.http.get<Task[]>(apiUrl, {withCredentials: true}).pipe(
       catchError(this.handleError.bind(this)),
       repeat({ count: 300, delay: 3_000 }),
@@ -170,14 +170,14 @@ export class MixMatchService {
   }
 
   getTask(task_id: string): Observable<Task> {
-    let apiUrl = this.apiBaseUrl + '/task/' + task_id;
+    let apiUrl = this.apiBaseUrl + '/tasks/' + task_id;
     return this.http.get<Task>(apiUrl, {withCredentials: true}).pipe(
       catchError(this.handleError.bind(this))
     );
   }
 
   getTasksRunning(): Observable<TaskRunning[]> {
-    let apiUrl = this.apiBaseUrl + '/task/running';
+    let apiUrl = this.apiBaseUrl + '/tasks/running';
     return this.http.get<TaskRunning[]>(apiUrl, {withCredentials: true}).pipe(
       catchError(this.handleError.bind(this)),
       repeat({ count: 300, delay: 3_000 }),
@@ -185,28 +185,28 @@ export class MixMatchService {
   }
 
   runTask(task_id: string): Observable<Task> {
-    let apiUrl = this.apiBaseUrl + '/task/' + task_id + '/run';
+    let apiUrl = this.apiBaseUrl + '/tasks/' + task_id + '/run';
     return this.http.get<Task>(apiUrl, {withCredentials: true, headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).pipe(
       catchError(this.handleError.bind(this))
     );
   }
 
   getUsers(): Observable<User[]> {
-    let apiUrl = this.apiBaseUrl + '/user/';
+    let apiUrl = this.apiBaseUrl + '/users/';
     return this.http.get<User[]>(apiUrl, {withCredentials: true}).pipe(
       catchError(this.handleError.bind(this))
     );
   }
 
   getUser(username: string): Observable<User> {
-    let apiUrl = this.apiBaseUrl + '/user/' + username;
+    let apiUrl = this.apiBaseUrl + '/users/' + username;
     return this.http.get<User>(apiUrl, {withCredentials: true}).pipe(
       catchError(this.handleError.bind(this))
     );
   }
   
   getUserCurrent(): Observable<User> {
-    let apiUrl = this.apiBaseUrl + '/user/me';
+    let apiUrl = this.apiBaseUrl + '/users/me';
     return this.http.get<User>(apiUrl, {withCredentials: true}).pipe(
       tap(current_user => this.current_user = current_user),
       catchError(this.handleError.bind(this))
@@ -214,7 +214,7 @@ export class MixMatchService {
   }
 
   addUser(user: UserModel): Observable<User> {
-    let apiUrl = this.apiBaseUrl + '/user/';
+    let apiUrl = this.apiBaseUrl + '/users/';
     return this.http.post<User>(apiUrl, user, {withCredentials: true, headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).pipe(
       tap(_ => this.handleEvent('User created')),
       catchError(this.handleError.bind(this))
@@ -222,7 +222,7 @@ export class MixMatchService {
   }
 
   deleteUser(username: string): Observable<User> {
-    let apiUrl = this.apiBaseUrl + '/user/' + username;
+    let apiUrl = this.apiBaseUrl + '/users/' + username;
     return this.http.delete<User>(apiUrl, {withCredentials: true, headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).pipe(
       tap(_ => this.handleEvent('User removed')),
       catchError(this.handleError.bind(this))
@@ -230,7 +230,7 @@ export class MixMatchService {
   }
 
   patchUser(username: string, user_data: Object): Observable<User> {
-    let apiUrl = this.apiBaseUrl + '/user/' + username;
+    let apiUrl = this.apiBaseUrl + '/users/' + username;
     return this.http.patch<User>(apiUrl, user_data, {withCredentials: true, headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).pipe(
       tap(_ => this.handleEvent('Changes saved')),
       catchError(this.handleError.bind(this))
@@ -238,7 +238,7 @@ export class MixMatchService {
   }
 
   patchUserCurrent(user_data: Object): Observable<User> {
-    let apiUrl = this.apiBaseUrl + '/user/me';
+    let apiUrl = this.apiBaseUrl + '/users/me';
     return this.http.patch<User>(apiUrl, user_data, {withCredentials: true, headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).pipe(
       tap(_ => this.handleEvent('Changes saved')),
       catchError(this.handleError.bind(this))

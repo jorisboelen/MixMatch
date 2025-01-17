@@ -1,6 +1,6 @@
 from .enums import SortOrderEnum
 from abc import ABC, abstractmethod
-from mixmatch.db.models import Music, Playlist
+from mixmatch.db.models import Playlist, Track
 from sqlalchemy.sql.expression import func
 from sqlmodel import SQLModel
 from sqlmodel.sql.expression import SelectOfScalar
@@ -34,7 +34,12 @@ class SortingFilter(ABC):
         pass
 
 
-class MusicSortingFilter(SortingFilter):
+class PlaylistSortingFilter(SortingFilter):
+    def additional_sort_functions(self):
+        pass
+
+
+class TrackSortingFilter(SortingFilter):
     def additional_sort_functions(self):
         if self.sort_by == 'key':
             if self.sort_order == SortOrderEnum.ASC:
@@ -43,14 +48,9 @@ class MusicSortingFilter(SortingFilter):
                 self.sort_functions.insert(0, func.length(self.sort_field).desc())
 
 
-class PlaylistSortingFilter(SortingFilter):
-    def additional_sort_functions(self):
-        pass
-
-
-def music_sort(statement: SelectOfScalar, sort_by: str, sort_order: SortOrderEnum = SortOrderEnum.ASC):
-    return MusicSortingFilter(Music, sort_by, sort_order).apply_filter(statement)
-
-
 def playlist_sort(statement: SelectOfScalar, sort_by: str, sort_order: SortOrderEnum = SortOrderEnum.ASC):
     return PlaylistSortingFilter(Playlist, sort_by, sort_order).apply_filter(statement)
+
+
+def track_sort(statement: SelectOfScalar, sort_by: str, sort_order: SortOrderEnum = SortOrderEnum.ASC):
+    return TrackSortingFilter(Track, sort_by, sort_order).apply_filter(statement)

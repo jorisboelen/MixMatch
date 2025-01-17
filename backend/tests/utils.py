@@ -6,7 +6,7 @@ from mixmatch.core.settings import settings
 from mixmatch.core.utils import get_compatible_keys
 from mixmatch.db import crud
 from mixmatch.db.database import get_db
-from mixmatch.db.models import Music, Playlist, User, UserSession
+from mixmatch.db.models import Playlist, Track, User, UserSession
 from random import choice
 from secrets import token_hex
 
@@ -23,25 +23,25 @@ def generate_user_token(username: str, save_to_db: bool=True):
     return token
 
 
-def generate_music_search_queries_matching(music_item: Music):
+def generate_track_search_queries_matching(track: Track):
     # empty query
     q1 = [{}]
     # single field, exact match
-    q2 = [{'artist': music_item.artist}, {'title': music_item.title}, {'genre_id': music_item.genre.id},
-          {'year_lowest': music_item.date, 'year_highest': music_item.date},
-          {'bpm_lowest': music_item.bpm, 'bpm_highest': music_item.bpm}, {'key': [music_item.key]},
-          {'rating_lowest': music_item.rating, 'rating_highest': music_item.rating}]
+    q2 = [{'artist': track.artist}, {'title': track.title}, {'genre_id': track.genre.id},
+          {'year_lowest': track.date, 'year_highest': track.date},
+          {'bpm_lowest': track.bpm, 'bpm_highest': track.bpm}, {'key': [track.key]},
+          {'rating_lowest': track.rating, 'rating_highest': track.rating}]
     # single field, partial match
-    q3 = [{'artist': music_item.artist[fake.random_int(min=0, max=2):fake.random_int(min=-5, max=0)]},
-          {'title': music_item.title[fake.random_int(min=0, max=2):fake.random_int(min=-5, max=0)]},
-          {'year_lowest': str(int(music_item.date) - fake.random_int(min=0, max=50)),
-           'year_hightest': str(int(music_item.date) + fake.random_int(min=0, max=50))},
-          {'bpm_lowest': music_item.bpm - fake.random_int(min=0, max=20),
-           'bpm_hightest': music_item.bpm + fake.random_int(min=0, max=20)},
-          {'key': [choice(get_compatible_keys(music_item.key))], 'include_compatible_keys': True},
-          {'key': get_compatible_keys(music_item.key), 'include_compatible_keys': True},
-          {'rating_lowest': fake.random_int(min=0, max=music_item.rating),
-           'rating_highest': fake.random_int(min=music_item.rating, max=5)}]
+    q3 = [{'artist': track.artist[fake.random_int(min=0, max=2):fake.random_int(min=-5, max=0)]},
+          {'title': track.title[fake.random_int(min=0, max=2):fake.random_int(min=-5, max=0)]},
+          {'year_lowest': str(int(track.date) - fake.random_int(min=0, max=50)),
+           'year_hightest': str(int(track.date) + fake.random_int(min=0, max=50))},
+          {'bpm_lowest': track.bpm - fake.random_int(min=0, max=20),
+           'bpm_hightest': track.bpm + fake.random_int(min=0, max=20)},
+          {'key': [choice(get_compatible_keys(track.key))], 'include_compatible_keys': True},
+          {'key': get_compatible_keys(track.key), 'include_compatible_keys': True},
+          {'rating_lowest': fake.random_int(min=0, max=track.rating),
+           'rating_highest': fake.random_int(min=track.rating, max=5)}]
     # multiple fields
     q4 = [{**choice(q2 + q3), **choice(q2 + q3)} for _ in range(1,10)]
     # combine all queries

@@ -49,7 +49,7 @@ def export_playlist(current_user: Annotated[User | None, Depends(get_current_use
     playlist = crud.get_playlist(db=db, playlist_id=playlist_id, owner=current_user)
     if not playlist:
         raise HTTPException(status_code=404, detail="Playlist not found")
-    return linesep.join([f'{i.order:02d}) {i.music.artist} - {i.music.title}' for i in playlist.playlist_items])
+    return linesep.join([f'{i.order:02d}) {i.track.artist} - {i.track.title}' for i in playlist.playlist_items])
 
 
 @router.patch("/{playlist_id}", response_model=PlaylistRead, status_code=200)
