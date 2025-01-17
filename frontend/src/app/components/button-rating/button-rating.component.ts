@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
-import { MusicItem } from '../../interfaces';
+import { Track } from '../../interfaces';
 
 @Component({
   selector: 'app-button-rating',
@@ -10,10 +10,10 @@ import { MusicItem } from '../../interfaces';
   styleUrl: './button-rating.component.css'
 })
 export class ButtonRatingComponent {
-  @Input() music_item!: MusicItem;
-  @Output() updateMusicItemRatingEvent = new EventEmitter();
+  @Input() track!: Track;
+  @Output() updateTrackRatingEvent = new EventEmitter();
 
-  updateRating(music_item: MusicItem) {
-    this.updateMusicItemRatingEvent.emit(music_item);
+  updateRating(track: Track) {
+    this.updateTrackRatingEvent.emit(track);
   }
 }

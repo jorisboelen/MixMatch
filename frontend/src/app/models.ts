@@ -1,4 +1,22 @@
-export class MusicSearchQueryModel {
+export class PlaylistModel {
+
+  constructor(
+    public name?: string
+  ) { }
+
+}
+
+export class PlaylistItemModel {
+
+  constructor(
+    public playlist_id?: number,
+    public track_id?: number,
+    public order: number = 0
+  ) { }
+
+}
+
+export class TrackSearchQueryModel {
 
   constructor(
     public artist?: string,
@@ -15,24 +33,6 @@ export class MusicSearchQueryModel {
     public sort_by: string = '',
     public sort_order: string = 'asc',
     public random?: boolean
-  ) { }
-
-}
-
-export class PlaylistModel {
-
-  constructor(
-    public name?: string
-  ) { }
-
-}
-
-export class PlaylistItemModel {
-
-  constructor(
-    public playlist_id?: number,
-    public music_id?: number,
-    public order: number = 0
   ) { }
 
 }

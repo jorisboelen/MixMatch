@@ -5,7 +5,7 @@ import { Observable, repeat, of, tap, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { NotificationService } from './notification.service';
-import { Genre, MusicItem, MusicListResponse, Playlist, PlaylistResponse, PlaylistItem, NotificationLevel, Task, TaskRunning, User } from '../interfaces';
+import { Genre, Playlist, PlaylistResponse, PlaylistItem, NotificationLevel, Task, TaskRunning, Track, TrackResponse, User } from '../interfaces';
 import { PlaylistModel, PlaylistItemModel, UserModel, UserLoginModel } from '../models';
 
 @Injectable({
@@ -34,55 +34,55 @@ export class MixMatchService {
     );
   }
 
-  getMusic(params = {}): Observable<MusicListResponse> {
-    let apiUrl = this.apiBaseUrl + '/music/';
-    return this.http.get<MusicListResponse>(apiUrl, {withCredentials: true, params: new HttpParams({fromObject: params})}).pipe(
+  getTracks(params = {}): Observable<TrackResponse> {
+    let apiUrl = this.apiBaseUrl + '/tracks/';
+    return this.http.get<TrackResponse>(apiUrl, {withCredentials: true, params: new HttpParams({fromObject: params})}).pipe(
       catchError(this.handleError.bind(this))
     );
   }
 
-  getMusicItem(music_item_id: number): Observable<MusicItem> {
-    let apiUrl = this.apiBaseUrl + '/music/' + music_item_id;
-    return this.http.get<MusicItem>(apiUrl, {withCredentials: true}).pipe(
+  getTrack(track_id: number): Observable<Track> {
+    let apiUrl = this.apiBaseUrl + '/tracks/' + track_id;
+    return this.http.get<Track>(apiUrl, {withCredentials: true}).pipe(
       catchError(this.handleError.bind(this))
     );
   }
 
-  getMusicItemCover(music_item_id: number): string {
-    return this.apiBaseUrl + '/music/' + music_item_id + '/cover?' + Date.now();
+  getTrackCover(track_id: number): string {
+    return this.apiBaseUrl + '/tracks/' + track_id + '/cover?' + Date.now();
   }
 
-  getMusicItemMedia(music_item_id: number): string {
-    return this.apiBaseUrl + '/music/' + music_item_id + '/media';
+  getTrackMedia(track_id: number): string {
+    return this.apiBaseUrl + '/tracks/' + track_id + '/media';
   }
 
-  searchMusic(params = {}, music_search_query = {}): Observable<MusicListResponse> {
-    let apiUrl = this.apiBaseUrl + '/music/search';
-    return this.http.post<MusicListResponse>(apiUrl, music_search_query, {withCredentials: true, params: new HttpParams({fromObject: params})}).pipe(
+  searchTracks(params = {}, track_search_query = {}): Observable<TrackResponse> {
+    let apiUrl = this.apiBaseUrl + '/tracks/search';
+    return this.http.post<TrackResponse>(apiUrl, track_search_query, {withCredentials: true, params: new HttpParams({fromObject: params})}).pipe(
       catchError(this.handleError.bind(this))
     );
   }
 
-  deleteMusicItem(music_item_id: number): Observable<MusicItem> {
-    let apiUrl = this.apiBaseUrl + '/music/' + music_item_id;
-    return this.http.delete<MusicItem>(apiUrl, {withCredentials: true, headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).pipe(
+  deleteTrack(track_id: number): Observable<Track> {
+    let apiUrl = this.apiBaseUrl + '/tracks/' + track_id;
+    return this.http.delete<Track>(apiUrl, {withCredentials: true, headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).pipe(
       tap(_ => this.handleEvent('Item removed')),
       catchError(this.handleError.bind(this))
     );
   }
 
-  patchMusicItem(music_item_id: number, music_item_data: Object): Observable<MusicItem> {
-    let apiUrl = this.apiBaseUrl + '/music/' + music_item_id;
-    return this.http.patch<MusicItem>(apiUrl, music_item_data, {withCredentials: true, headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).pipe(
+  patchTrack(track_id: number, track_data: Object): Observable<Track> {
+    let apiUrl = this.apiBaseUrl + '/tracks/' + track_id;
+    return this.http.patch<Track>(apiUrl, track_data, {withCredentials: true, headers: new HttpHeaders({ 'Content-Type': 'application/json' })}).pipe(
       tap(_ => this.handleEvent('Changes saved')),
       catchError(this.handleError.bind(this))
     );
   }
 
-  updateMusicItemCover(music_item_id: number, file: File): Observable<any> {
-    let apiUrl = this.apiBaseUrl + '/music/' + music_item_id + '/cover';
+  updateTrackCover(track_id: number, file: File): Observable<any> {
+    let apiUrl = this.apiBaseUrl + '/tracks/' + track_id + '/cover';
     let formData = new FormData();
-    formData.append("music_cover", file, file.name);
+    formData.append("track_cover", file, file.name);
     return this.http.put(apiUrl, formData, {withCredentials: true}).pipe(
       tap(_ => this.handleEvent('Cover updated')),
       catchError(this.handleError.bind(this))

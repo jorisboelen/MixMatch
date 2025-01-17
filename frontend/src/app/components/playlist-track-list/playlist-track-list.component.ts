@@ -7,13 +7,13 @@ import { ModalPlaylistEditComponent } from '../../components/modal-playlist-edit
 import { Playlist } from '../../interfaces';
 
 @Component({
-  selector: 'app-playlist-music-list',
+  selector: 'app-playlist-track-list',
   standalone: true,
   imports: [DatePipe, NgFor, RouterLink],
-  templateUrl: './playlist-music-list.component.html',
-  styleUrl: './playlist-music-list.component.css'
+  templateUrl: './playlist-track-list.component.html',
+  styleUrl: './playlist-track-list.component.css'
 })
-export class PlaylistMusicListComponent {
+export class PlaylistTrackListComponent {
   @Input() playlist!: Playlist;
   @Output() deletePlaylistEvent = new EventEmitter<Playlist>();
   @Output() updatePlaylistEvent = new EventEmitter<Playlist>();

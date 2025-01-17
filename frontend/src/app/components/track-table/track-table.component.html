@@ -1,0 +1,56 @@
+<table *ngIf="track" class="table table-light table-sm">
+  <tbody>
+  <tr>
+    <th>ID</th>
+    <td>{{ track.id }}</td>
+  </tr>
+  <tr>
+    <th>Artist</th>
+    <td>{{ track.artist }}</td>
+  </tr>
+  <tr>
+    <th>Title</th>
+    <td>{{ track.title }}</td>
+  </tr>
+  <tr>
+    <th>Album</th>
+    <td>{{ track.album }}</td>
+  </tr>
+  <tr>
+    <th>Genre</th>
+    <td>{{ track.genre.name }}</td>
+  </tr>
+  <tr>
+    <th>Year</th>
+    <td>{{ track.date }}</td>
+  </tr>
+  <tr>
+    <th>Length</th>
+    <td>{{ track.length * 1000 | date:'mm:ss' }}</td>
+  </tr>
+  <tr>
+    <th>Type</th>
+    <td>{{ track.type | uppercase }}</td>
+  </tr>
+  <tr>
+    <th>BPM</th>
+    <td>{{ track.bpm }}</td>
+  </tr>
+  <tr>
+    <th>Key</th>
+    <td>{{ track.key }}</td>
+  </tr>
+  <tr>
+    <th>Bitrate</th>
+    <td>{{ track.bitrate / 1000 | number : '0.0-0' }} kbps</td>
+  </tr>
+  <tr>
+    <th>Modified</th>
+    <td>{{ track.mtime * 1000 | date : 'medium' }}</td>
+  </tr>
+  <tr>
+    <th>Rating</th>
+    <td><app-button-rating [track]="track" (updateTrackRatingEvent)="updateTrackRating($event)"></app-button-rating></td>
+  </tr>
+  </tbody>
+</table>

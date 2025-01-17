@@ -46,7 +46,7 @@ export class PlaylistDetailComponent {
 
   openPlaylistItemDeleteModal(playlist_item: PlaylistItem): void {
     const modal = this.modalService.open(ModalDeleteConfirmationComponent, {});
-    modal.componentInstance.modal_title = playlist_item.music.artist + " - " + playlist_item.music.title;
+    modal.componentInstance.modal_title = playlist_item.track.artist + " - " + playlist_item.track.title;
     modal.result.then(
       (result) => {this.deletePlaylistItem(playlist_item)},
       (reason) => {},

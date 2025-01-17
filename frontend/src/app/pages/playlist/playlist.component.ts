@@ -4,14 +4,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MixMatchService } from '../../services/mixmatch.service';
 import { ModalPlaylistAddComponent } from '../../components/modal-playlist-add/modal-playlist-add.component';
 import { PaginationComponent } from '../../components/pagination/pagination.component';
-import { PlaylistMusicListComponent } from '../../components/playlist-music-list/playlist-music-list.component';
+import { PlaylistTrackListComponent } from '../../components/playlist-track-list/playlist-track-list.component';
 import { PlaylistResponse, Playlist, User } from '../../interfaces';
 import { PlaylistModel } from '../../models';
 
 @Component({
   selector: 'app-playlist',
   standalone: true,
-  imports: [NgFor, NgIf, PaginationComponent, PlaylistMusicListComponent],
+  imports: [NgFor, NgIf, PaginationComponent, PlaylistTrackListComponent],
   templateUrl: './playlist.component.html',
   styleUrl: './playlist.component.css'
 })

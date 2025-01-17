@@ -3,19 +3,19 @@ import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Genre } from '../../interfaces';
-import { MusicSearchQueryModel } from '../../models';
+import { TrackSearchQueryModel } from '../../models';
 
 @Component({
-  selector: 'app-modal-music-filter',
+  selector: 'app-modal-track-filter',
   standalone: true,
   imports: [FormsModule, NgFor],
-  templateUrl: './modal-music-filter.component.html',
-  styleUrl: './modal-music-filter.component.css'
+  templateUrl: './modal-track-filter.component.html',
+  styleUrl: './modal-track-filter.component.css'
 })
-export class ModalMusicFilterComponent {
+export class ModalTrackFilterComponent {
   @Input() genre_list!: Genre[];
   @Input() key_list!: String[];
-  @Input() search_query!: MusicSearchQueryModel;
+  @Input() search_query!: TrackSearchQueryModel;
 
   constructor(public activeModal: NgbActiveModal) {}
 }

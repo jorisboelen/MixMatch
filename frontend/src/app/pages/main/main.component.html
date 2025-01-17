@@ -2,10 +2,10 @@
   <div class="row py-4">
     <div class="col mx-auto">
       <app-button-stats
-        *ngIf="music_count"
+        *ngIf="track_count"
         [label]="'Music'"
-        [count]="music_count.total"
-        [routerLinkText]="'/music'"
+        [count]="track_count.total"
+        [routerLinkText]="'/track'"
       ></app-button-stats>
       <app-button-stats
         *ngIf="playlist_count"
@@ -21,25 +21,25 @@
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <div class="col">
-        <app-music-list
-          *ngIf="music_modified"
+        <app-track-list
+          *ngIf="track_modified"
           [label]="'Recently Modified'"
-          [musicListResponse]="music_modified"
-        ></app-music-list>
+          [trackResponse]="track_modified"
+        ></app-track-list>
       </div>
       <div class="col">
-        <app-music-list
-          *ngIf="music_new"
+        <app-track-list
+          *ngIf="track_new"
           [label]="'New Releases'"
-          [musicListResponse]="music_new"
-        ></app-music-list>
+          [trackResponse]="track_new"
+        ></app-track-list>
       </div>
       <div class="col">
-        <app-music-list
-          *ngIf="music_rated"
+        <app-track-list
+          *ngIf="track_rated"
           [label]="'Highest Rated'"
-          [musicListResponse]="music_rated"
-        ></app-music-list>
+          [trackResponse]="track_rated"
+        ></app-track-list>
       </div>
     </div>
   </div>

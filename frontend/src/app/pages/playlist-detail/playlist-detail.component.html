@@ -36,12 +36,12 @@
 
       <tr *ngFor="let playlist_item of playlist.playlist_items" cdkDrag cdkDragLockAxis="y">
         <td>{{ playlist_item.order }}</td>
-        <td><a routerLink="/music/{{playlist_item.music.id}}" class="link-dark text-decoration-none">{{ playlist_item.music.artist }}</a></td>
-        <td><a routerLink="/music/{{playlist_item.music.id}}" class="link-dark text-decoration-none">{{ playlist_item.music.title }}</a></td>
-        <td class="d-none d-lg-table-cell">{{ playlist_item.music.genre.name }}</td>
-        <td class="d-none d-lg-table-cell">{{ playlist_item.music.date }}</td>
-        <td class="d-none d-sm-table-cell">{{ playlist_item.music.bpm }}</td>
-        <td class="d-none d-sm-table-cell">{{ playlist_item.music.key }}</td>
+        <td><a routerLink="/track/{{playlist_item.track.id}}" class="link-dark text-decoration-none">{{ playlist_item.track.artist }}</a></td>
+        <td><a routerLink="/track/{{playlist_item.track.id}}" class="link-dark text-decoration-none">{{ playlist_item.track.title }}</a></td>
+        <td class="d-none d-lg-table-cell">{{ playlist_item.track.genre.name }}</td>
+        <td class="d-none d-lg-table-cell">{{ playlist_item.track.date }}</td>
+        <td class="d-none d-sm-table-cell">{{ playlist_item.track.bpm }}</td>
+        <td class="d-none d-sm-table-cell">{{ playlist_item.track.key }}</td>
         <td><span class="bi bi-arrows-move clickable" aria-hidden="true"></span></td>
         <td>
           <div class="dropdown">

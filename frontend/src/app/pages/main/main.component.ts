@@ -1,31 +1,31 @@
 import { Component } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { ButtonStatsComponent } from '../../components/button-stats/button-stats.component';
-import { MusicListComponent } from '../../components/music-list/music-list.component';
+import { TrackListComponent } from '../../components/track-list/track-list.component';
 import { MixMatchService } from '../../services/mixmatch.service';
-import { MusicListResponse, PlaylistResponse } from '../../interfaces';
+import { PlaylistResponse, TrackResponse } from '../../interfaces';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [NgFor, NgIf, ButtonStatsComponent, MusicListComponent],
+  imports: [NgFor, NgIf, ButtonStatsComponent, TrackListComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'
 })
 export class MainComponent {
-  music_count?: MusicListResponse;
+  track_count?: TrackResponse;
   playlist_count?: PlaylistResponse;
-  music_modified?: MusicListResponse;
-  music_new?: MusicListResponse;
-  music_rated?: MusicListResponse;
+  track_modified?: TrackResponse;
+  track_new?: TrackResponse;
+  track_rated?: TrackResponse;
   
   constructor(private mixmatchService: MixMatchService) {}
   
   ngOnInit(): void {
-    this.mixmatchService.getMusic({size: 1, page: 1}).subscribe((music_count) => (this.music_count = music_count));
+    this.mixmatchService.getTracks({size: 1, page: 1}).subscribe((track_count) => (this.track_count = track_count));
     this.mixmatchService.getPlaylists({size: 1, page: 1}).subscribe((playlist_count) => (this.playlist_count = playlist_count));
-    this.mixmatchService.searchMusic({size: 10, page: 1}, {sort_by: 'mtime', sort_order: 'desc'}).subscribe((music_modified) => (this.music_modified = music_modified));
-    this.mixmatchService.searchMusic({size: 10, page: 1}, {sort_by: 'date', sort_order: 'desc', random: true}).subscribe((music_new) => (this.music_new = music_new));
-    this.mixmatchService.searchMusic({size: 10, page: 1}, {sort_by: 'rating', sort_order: 'desc', random: true}).subscribe((music_rated) => (this.music_rated = music_rated));
+    this.mixmatchService.searchTracks({size: 10, page: 1}, {sort_by: 'mtime', sort_order: 'desc'}).subscribe((track_modified) => (this.track_modified = track_modified));
+    this.mixmatchService.searchTracks({size: 10, page: 1}, {sort_by: 'date', sort_order: 'desc', random: true}).subscribe((track_new) => (this.track_new = track_new));
+    this.mixmatchService.searchTracks({size: 10, page: 1}, {sort_by: 'rating', sort_order: 'desc', random: true}).subscribe((track_rated) => (this.track_rated = track_rated));
   }
 }

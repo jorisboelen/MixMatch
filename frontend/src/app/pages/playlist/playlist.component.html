@@ -9,12 +9,12 @@
 <div *ngIf="playlist_list" class="album mb-4">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <app-playlist-music-list
+      <app-playlist-track-list
         *ngFor="let playlist of playlist_list.items"
         [playlist]="playlist"
         (deletePlaylistEvent)="deletePlaylist($event)"
         (updatePlaylistEvent)="updatePlaylist($event)"
-      ></app-playlist-music-list>
+      ></app-playlist-track-list>
     </div>
   </div>
 </div>

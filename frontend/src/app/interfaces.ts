@@ -3,31 +3,6 @@ export interface Genre {
   name: string;
 }
 
-export interface MusicItem {
-  id: number;
-  path: string;
-  mtime: number;
-  type: string;
-  bitrate: number;
-  length: number;
-  artist: string;
-  title: string;
-  album: string;
-  genre: Genre;
-  date: string;
-  bpm: number;
-  key: string;
-  rating: number;
-}
-
-export interface MusicListResponse {
-  total: number;
-  page: number;
-  size: number;
-  pages: number;
-  items: Array<MusicItem>;
-}
-
 export interface Playlist {
   id: number;
   name: string;
@@ -39,7 +14,7 @@ export interface Playlist {
 
 export interface PlaylistItem {
   id: number;
-  music: MusicItem;
+  track: Track;
   order: number;
 }
 
@@ -85,6 +60,31 @@ export interface TaskRunning {
   result: string;
   started: Date;
   completed: Date;
+}
+
+export interface Track {
+  id: number;
+  path: string;
+  mtime: number;
+  type: string;
+  bitrate: number;
+  length: number;
+  artist: string;
+  title: string;
+  album: string;
+  genre: Genre;
+  date: string;
+  bpm: number;
+  key: string;
+  rating: number;
+}
+
+export interface TrackResponse {
+  total: number;
+  page: number;
+  size: number;
+  pages: number;
+  items: Array<Track>;
 }
 
 export interface User {
