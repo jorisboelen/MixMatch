@@ -3,14 +3,16 @@ from fastapi.exceptions import HTTPException
 from fastapi.responses import FileResponse
 from fastapi_pagination import Page
 from os import path, unlink
+from pathlib import Path
 from sqlmodel import Session
 
 from mixmatch.api.utils import require_admin_permissions as admin_permissions
 from mixmatch.core.settings import APPLICATION_ASSETS_DIRECTORY, settings
 from mixmatch.db import crud
 from mixmatch.db.database import get_db
-from mixmatch.db.models import Genre, TrackSearchQuery, TrackRead, TrackUpdate
-from mixmatch.file import MusicFile
+from mixmatch.db.models import TrackSearchQuery, TrackRead, TrackUpdate
+from mixmatch.file import mixmatch_file, MixMatchFileCover
+from mixmatch.tasks.utils import save_cover
 
 router = APIRouter()
 
@@ -57,11 +59,11 @@ def update_track_cover(track_id: int, track_cover: UploadFile, db: Session = Dep
     if track_cover.content_type not in ['image/jpeg', 'image/png']:
         raise HTTPException(status_code=415, detail="Unsupported image format")
 
-    music_file = MusicFile(db_track.path)
-    music_file.update_cover(cover_data=track_cover.file, cover_mime=track_cover.content_type)
-    genre = crud.get_or_create_genre(db=db, genre=Genre(name=music_file.genre))
-    crud.update_track(db=db, track=db_track,
-                           track_data={**music_file.to_dict(), **{'genre': genre}})
+    music_file = mixmatch_file(file_path=Path(db_track.path))
+    music_file.cover = MixMatchFileCover(data=track_cover.file.read(), mime=track_cover.content_type)
+    music_file.save()
+    cover = save_cover(music_file.cover)
+    crud.update_track(db=db, track=db_track, track_data={'cover': cover, 'mtime': music_file.mtime})
 
 
 @router.get("/{track_id}/media", response_class=FileResponse, status_code=200)
@@ -84,12 +86,17 @@ def patch_track(track_id: int, track: TrackUpdate, db: Session = Depends(get_db)
         genre = crud.get_genre(db=db, genre_id=db_track.genre_id)
     else:
         genre = crud.get_genre(db=db, genre_id=track.genre_id)
-    music_file = MusicFile(db_track.path)
-    music_file.update_music_data(music_data={**track.model_dump(exclude_unset=True), **{'genre': genre.name}})
+    music_file = mixmatch_file(file_path=Path(db_track.path))
+    music_file.artist = track.artist
+    music_file.title = track.title
+    music_file.album = track.album
+    music_file.genre = genre.name
+    music_file.date = track.date
+    music_file.save()
     return crud.update_track(db=db, track=db_track,
-                                  track_data={**music_file.to_dict(), **{'genre': genre},
-                                              **{'rating': track.rating if track.rating >=0
-                                              else db_track.rating}})
+                             track_data={**music_file.model_dump(exclude={'cover', 'genre'}),
+                                         **{'genre': genre,
+                                            'rating': track.rating if track.rating >=0 else db_track.rating}})
 
 
 @router.delete("/{track_id}", dependencies=[Depends(admin_permissions)], status_code=204)

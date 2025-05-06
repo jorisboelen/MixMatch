@@ -75,8 +75,8 @@ def search_tracks_paginated(db: Session, track_search_query: TrackSearchQuery):
     if track_search_query.genre_id:
         statement = statement.where(Track.genre_id == track_search_query.genre_id)
     if track_search_query.year_lowest and track_search_query.year_highest:
-        statement = statement.where(Track.date >= track_search_query.year_lowest)
-        statement = statement.where(Track.date <= track_search_query.year_highest)
+        statement = statement.where(func.date_part('year', Track.date) >= track_search_query.year_lowest)
+        statement = statement.where(func.date_part('year', Track.date) <= track_search_query.year_highest)
     if track_search_query.bpm_lowest and track_search_query.bpm_highest:
         statement = statement.where(Track.bpm >= track_search_query.bpm_lowest)
         statement = statement.where(Track.bpm <= track_search_query.bpm_highest)

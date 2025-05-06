@@ -7,7 +7,8 @@ from mixmatch.db import crud
 from mixmatch.db.database import get_db
 from mixmatch.db.models import Genre, GenreCreate, Playlist, PlaylistCreate, PlaylistItem, PlaylistItemCreate, Track
 from mixmatch.db.models import User, UserCreate
-from mixmatch.file import MusicFile
+from mixmatch.file import mixmatch_file
+from mixmatch.tasks.utils import save_cover
 from os.path import dirname, join
 from pathlib import Path
 from random import choice
@@ -48,15 +49,15 @@ def track(db=next(get_db())):
     test_track_resource = choice(RESOURCES_TRACK)
     test_track_path = join(settings.MUSIC_DIRECTORY, f'{str(uuid4())}{test_track_resource.suffix}')
     copy(test_track_resource, test_track_path)
-    test_music_file = MusicFile(str(test_track_path))
-    test_music_file.update_music_data({
-        'artist': fake.name(),
-        'title': fake.city(),
-        'album': fake.country(),
-        'genre': choice(RESOURCES_GENRE),
-        'date': fake.year()
-    })
-    test_track = Track(**test_music_file.to_dict())
+    test_music_file = mixmatch_file(Path(test_track_path))
+    test_music_file.artist = fake.name()
+    test_music_file.title = fake.city()
+    test_music_file.album = fake.country()
+    test_music_file.genre = choice(RESOURCES_GENRE)
+    test_music_file.date = fake.date_object()
+    test_music_file.save()
+    test_track = Track(**test_music_file.model_dump(exclude={'cover', 'genre'}))
+    test_track.cover = save_cover(test_music_file.cover)
     test_track.genre = crud.get_or_create_genre(db=db, genre=Genre(name=test_music_file.genre))
     test_track.rating = fake.random_int(min=0, max=5)
     return crud.create_track(db=db, track=test_track)

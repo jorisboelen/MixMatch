@@ -47,7 +47,7 @@ def upgrade() -> None:
     sa.Column('artist', sqlmodel.sql.sqltypes.AutoString(), nullable=True),
     sa.Column('title', sqlmodel.sql.sqltypes.AutoString(), nullable=True),
     sa.Column('album', sqlmodel.sql.sqltypes.AutoString(), nullable=True),
-    sa.Column('date', sqlmodel.sql.sqltypes.AutoString(), nullable=True),
+    sa.Column('date', sa.Date(), nullable=True),
     sa.Column('bpm', sa.Integer(), nullable=False),
     sa.Column('key', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
     sa.Column('rating', sa.Integer(), nullable=False),

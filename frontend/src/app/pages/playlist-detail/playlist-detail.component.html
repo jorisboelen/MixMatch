@@ -39,7 +39,7 @@
         <td><a routerLink="/track/{{playlist_item.track.id}}" class="link-dark text-decoration-none">{{ playlist_item.track.artist }}</a></td>
         <td><a routerLink="/track/{{playlist_item.track.id}}" class="link-dark text-decoration-none">{{ playlist_item.track.title }}</a></td>
         <td class="d-none d-lg-table-cell">{{ playlist_item.track.genre.name }}</td>
-        <td class="d-none d-lg-table-cell">{{ playlist_item.track.date }}</td>
+        <td class="d-none d-lg-table-cell">{{ playlist_item.track.date | date : "yyyy" }}</td>
         <td class="d-none d-sm-table-cell">{{ playlist_item.track.bpm }}</td>
         <td class="d-none d-sm-table-cell">{{ playlist_item.track.key }}</td>
         <td><span class="bi bi-arrows-move clickable" aria-hidden="true"></span></td>

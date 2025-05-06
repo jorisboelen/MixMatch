@@ -73,7 +73,7 @@ export interface Track {
   title: string;
   album: string;
   genre: Genre;
-  date: string;
+  date: Date;
   bpm: number;
   key: string;
   rating: number;

@@ -1,6 +1,7 @@
 from base64 import b64decode, b64encode
 from json import loads
 from math import modf
+from prettytable import PrettyTable
 from re import findall
 
 
@@ -16,28 +17,16 @@ MUSIC_KEYS_CAMELOT = {'A major': '11B', 'Ab major': '4B', 'A minor': '8A', 'Ab m
                       'G major': '9B', 'G# minor': '1A', 'Gb major': '2B', 'G minor': '6A'}
 
 
-def is_base64(sb):
-    try:
-        if isinstance(sb, str):
-            sb_bytes = bytes(sb, 'ascii')
-        elif isinstance(sb, bytes):
-            sb_bytes = sb
-        else:
-            raise ValueError("Argument must be string or bytes")
-        return b64encode(b64decode(sb_bytes)) == sb_bytes
-    except Exception:
-        return False
+def dict_to_table(ld: list[dict]) -> str:
+    if ld:
+        table = PrettyTable(field_names=list(ld[0].keys()))
+        table.add_rows([list(d.values()) for d in ld])
+        return table.get_string()
+    else:
+        return ''
 
 
-def is_json(s):
-    try:
-        loads(s)
-    except ValueError:
-        return False
-    return True
-
-
-def get_compatible_keys(key, include_key=False):
+def get_compatible_keys(key: str, include_key: bool=False) -> list[str]:
     compatible_keys = []
     if key not in MUSIC_KEYS:
         raise ValueError(f'Invalid key {key}. Value not in {MUSIC_KEYS}')
@@ -58,7 +47,28 @@ def get_compatible_keys(key, include_key=False):
     return compatible_keys
 
 
-def round_bpm(input_bpm):
+def is_base64(sb: str | bytes) -> bool:
+    try:
+        if isinstance(sb, str):
+            sb_bytes = bytes(sb, 'ascii')
+        elif isinstance(sb, bytes):
+            sb_bytes = sb
+        else:
+            raise ValueError("Argument must be string or bytes")
+        return b64encode(b64decode(sb_bytes)) == sb_bytes
+    except Exception:
+        return False
+
+
+def is_json(s: bytes) -> bool:
+    try:
+        loads(s)
+    except ValueError:
+        return False
+    return True
+
+
+def round_bpm(input_bpm: int | float) -> int:
     fractional, integer = modf(input_bpm)
     bpm = int(integer)
     if fractional > 0.05:

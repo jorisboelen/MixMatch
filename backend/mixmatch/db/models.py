@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date as datetime_date, datetime
 from enum import Enum
 from mixmatch.db.filters.enums import SortOrderEnum
 from sqlalchemy.sql import func
@@ -32,7 +32,7 @@ class TrackBase(SQLModel):
     artist: str | None = Field(default=None, max_length=200)
     title: str | None = Field(default=None, max_length=200)
     album: str | None = Field(default=None, max_length=200)
-    date: str | None = Field(default=None, max_length=10)
+    date: datetime_date | None = Field(default=None)
     bpm: int
     key: str = Field(max_length=3)
     rating: int = Field(default=0, ge=0, le=5)
@@ -53,7 +53,7 @@ class TrackUpdate(SQLModel):
     title: str | None = Field(default=None, max_length=200)
     album: str | None = Field(default=None, max_length=200)
     genre_id: int | None = Field(default=None, foreign_key="genres.id")
-    date: str | None = Field(default=None, max_length=10)
+    date: datetime_date | None = Field(default=None)
     rating: int = Field(default=0, ge=0, le=5)
 
 
@@ -77,8 +77,8 @@ class TrackSearchQuery(SQLModel):
     artist: str | None = None
     title: str | None = None
     genre_id: int | None = None
-    year_lowest: str | None = None
-    year_highest: str | None = None
+    year_lowest: int | None = None
+    year_highest: int | None = None
     bpm_lowest: int | None = None
     bpm_highest: int | None = None
     key: list[str] | None = None

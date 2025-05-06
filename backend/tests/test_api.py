@@ -1,3 +1,4 @@
+from datetime import datetime
 from fastapi.testclient import TestClient
 from filecmp import cmp
 from mixmatch.app import app
@@ -75,18 +76,18 @@ class TestAdmin:
         track.title = fake.name()
         track.album = fake.city()
         track.genre_id = genre.id
-        track.date = fake.year()
+        track.date = fake.date_object()
         track.rating = fake.random_int(min=0, max=5)
         response = client.patch(f"/api/tracks/{track.id}",
                                 json={'artist': track.artist, 'title': track.title,
                                       'album': track.album, 'genre_id': track.genre_id,
-                                      'date': track.date, 'rating': track.rating})
+                                      'date': track.date.strftime('%Y-%m-%d'), 'rating': track.rating})
         assert response.status_code == 200
         assert response.json().get('artist') == track.artist
         assert response.json().get('title') == track.title
         assert response.json().get('album') == track.album
         assert response.json().get('genre').get('id') == track.genre_id
-        assert response.json().get('date') == track.date
+        assert datetime.strptime(response.json().get('date'), '%Y-%m-%d').date() == track.date
         assert response.json().get('rating') == track.rating
 
     def test_delete_track(self, track):

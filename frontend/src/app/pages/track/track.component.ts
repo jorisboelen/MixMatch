@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ButtonRatingComponent } from '../../components/button-rating/button-rating.component';
@@ -15,7 +15,7 @@ import { TrackSearchQueryModel, PlaylistItemModel } from '../../models';
 @Component({
   selector: 'app-track',
   standalone: true,
-  imports: [ButtonRatingComponent, ButtonToggleOrderComponent, NgClass, NgFor, NgIf, PaginationComponent, RouterLink],
+  imports: [ButtonRatingComponent, ButtonToggleOrderComponent, DatePipe, NgClass, NgFor, NgIf, PaginationComponent, RouterLink],
   templateUrl: './track.component.html',
   styleUrl: './track.component.css'
 })

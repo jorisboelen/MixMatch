@@ -5,10 +5,13 @@ from alembic.config import Config
 from argon2 import PasswordHasher
 from mixmatch import __application__, __version__
 from mixmatch.celery import celery
+from mixmatch.core.utils import dict_to_table
 from mixmatch.db import crud
 from mixmatch.db.database import get_db
+from mixmatch.file import mixmatch_file, MixMatchFile
 from mixmatch.tasks import task_cleanup, task_import
 from os import path
+from pathlib import Path
 
 
 @click.group()
@@ -37,6 +40,27 @@ def reset_password(username, password):
     user = crud.get_user(db=db, username=username)
     crud.update_user_password(db=db, db_user=user, hashed_password=PasswordHasher().hash(password))
     click.echo("Password updated")
+
+
+@main.group()
+def inspect():
+    pass
+
+
+@inspect.command()
+@click.argument("path", type=click.Path())
+def file(path):
+    music_file: MixMatchFile = mixmatch_file(Path(path))
+    click.echo(dict_to_table([music_file.model_dump(exclude={'cover', 'path'})]))
+
+
+@inspect.command()
+@click.argument("path", type=click.Path())
+def folder(path):
+    music_file_list = []
+    for p in [p for p in Path(path).rglob('*') if p.is_file()]:
+        music_file_list.append(mixmatch_file(Path(p)))
+    click.echo(dict_to_table([m.model_dump(exclude={'cover', 'path'}) for m in music_file_list]))
 
 
 @main.group()
@@ -76,7 +100,7 @@ def task():
 
 
 @task.command()
-def cleanup_covers():
+def cleanup():
     task_cleanup.delay()
 
 

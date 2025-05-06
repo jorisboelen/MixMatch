@@ -28,14 +28,14 @@ def generate_track_search_queries_matching(track: Track):
     q1 = [{}]
     # single field, exact match
     q2 = [{'artist': track.artist}, {'title': track.title}, {'genre_id': track.genre.id},
-          {'year_lowest': track.date, 'year_highest': track.date},
+          {'year_lowest': int(track.date.strftime('%Y')), 'year_highest': int(track.date.strftime('%Y'))},
           {'bpm_lowest': track.bpm, 'bpm_highest': track.bpm}, {'key': [track.key]},
           {'rating_lowest': track.rating, 'rating_highest': track.rating}]
     # single field, partial match
     q3 = [{'artist': track.artist[fake.random_int(min=0, max=2):fake.random_int(min=-5, max=0)]},
           {'title': track.title[fake.random_int(min=0, max=2):fake.random_int(min=-5, max=0)]},
-          {'year_lowest': str(int(track.date) - fake.random_int(min=0, max=50)),
-           'year_hightest': str(int(track.date) + fake.random_int(min=0, max=50))},
+          {'year_lowest': int(track.date.strftime('%Y')) - fake.random_int(min=0, max=50),
+           'year_hightest': int(track.date.strftime('%Y')) + fake.random_int(min=0, max=50)},
           {'bpm_lowest': track.bpm - fake.random_int(min=0, max=20),
            'bpm_hightest': track.bpm + fake.random_int(min=0, max=20)},
           {'key': [choice(get_compatible_keys(track.key))], 'include_compatible_keys': True},

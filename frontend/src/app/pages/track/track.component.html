@@ -25,7 +25,7 @@
     <td><a class="link-dark text-decoration-none" routerLink="/track/{{track.id}}">{{ track.artist }}</a></td>
     <td><a class="link-dark text-decoration-none" routerLink="/track/{{track.id}}">{{ track.title }}</a></td>
     <td class="d-none d-lg-table-cell">{{ track.genre.name }}</td>
-    <td class="d-none d-lg-table-cell">{{ track.date }}</td>
+    <td class="d-none d-lg-table-cell">{{ track.date | date : "yyyy" }}</td>
     <td class="d-none d-sm-table-cell">{{ track.bpm }}</td>
     <td class="d-none d-sm-table-cell">{{ track.key }}</td>
     <td class="d-none d-xl-table-cell"><app-button-rating [track]="track" (updateTrackRatingEvent)="updateTrackRating($event)"></app-button-rating></td>

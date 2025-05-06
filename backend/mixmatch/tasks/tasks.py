@@ -7,11 +7,11 @@ from mixmatch.core.settings import settings
 from mixmatch.db import crud
 from mixmatch.db.database import get_db
 from mixmatch.db.models import Genre, Track
-from mixmatch.file import MusicFile, MixMatchFileError
+from mixmatch.file import mixmatch_file, MixMatchFileError
 from os.path import exists
 from pathlib import Path
 from sqlmodel import Session
-from .utils import merge_task_results
+from .utils import merge_task_results, save_cover
 
 
 def task_cleanup_covers(path=settings.IMAGE_DIRECTORY, db: Session = next(get_db())):
@@ -76,19 +76,20 @@ def subtask_import_file(self, file: str, db: Session = next(get_db())):
     try:
         # process new file
         if not track:
-            music_file = MusicFile(path=str(file))
-            music_file.save_cover()
-            track = Track(**music_file.to_dict())
+            music_file = mixmatch_file(file_path=Path(file))
+            track = Track(**music_file.model_dump(exclude={'cover', 'genre'}))
+            track.cover = save_cover(music_file.cover)
             track.genre = crud.get_or_create_genre(db=db, genre=Genre(name=music_file.genre))
             crud.create_track(db=db, track=track)
             result['created'] = 1
         # process updated file
         elif int(Path(file).stat().st_mtime) != track.mtime:
-            music_file = MusicFile(path=str(file))
-            music_file.save_cover()
+            music_file = mixmatch_file(file_path=Path(file))
+            cover = save_cover(music_file.cover)
             genre = crud.get_or_create_genre(db=db, genre=Genre(name=music_file.genre))
             crud.update_track(db=db, track=track,
-                              track_data={**music_file.to_dict(), **{'genre': genre}})
+                              track_data={**music_file.model_dump(exclude={'cover', 'genre'}),
+                                          **{'cover': cover, 'genre': genre}})
             result['updated'] = 1
         # proces existing file
         else:
