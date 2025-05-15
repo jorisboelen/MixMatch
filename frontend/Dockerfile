@@ -1,4 +1,4 @@
-FROM nginx:1.27
+FROM nginx:1.28
 
 # set environment variables
 ENV BASE_DIRECTORY=/data
