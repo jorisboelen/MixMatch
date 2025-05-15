@@ -74,7 +74,7 @@ def read_track_media(track_id: int, db: Session = Depends(get_db)):
     else:
         headers = {'Content-Disposition': f'attachment; filename={path.basename(track.path)}',
                    'X-Accel-Charset': 'utf-8',
-                   'X-Accel-Redirect': f'/track/{path.relpath(track.path, settings.MUSIC_DIRECTORY)}'}
+                   'X-Accel-Redirect': f'/music/{path.relpath(track.path, settings.MUSIC_DIRECTORY)}'}
         return FileResponse(path=track.path, headers=headers)
 
 
