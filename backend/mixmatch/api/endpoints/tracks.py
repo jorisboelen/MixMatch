@@ -5,6 +5,7 @@ from fastapi_pagination import Page
 from os import path, unlink
 from pathlib import Path
 from sqlmodel import Session
+from urllib.parse import quote
 
 from mixmatch.api.utils import require_admin_permissions as admin_permissions
 from mixmatch.core.settings import APPLICATION_ASSETS_DIRECTORY, settings
@@ -73,7 +74,7 @@ def read_track_media(track_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Track not found")
     else:
         headers = {'Content-Disposition': f'attachment; filename={path.basename(track.path)}',
-                   'X-Accel-Redirect': f'/music/{path.relpath(track.path, settings.MUSIC_DIRECTORY)}'}
+                   'X-Accel-Redirect': quote(f'/music/{path.relpath(track.path, settings.MUSIC_DIRECTORY)}'),}
         return FileResponse(path=track.path, headers=headers)
 
 
