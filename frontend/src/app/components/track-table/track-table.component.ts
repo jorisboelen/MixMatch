@@ -4,11 +4,10 @@ import { ButtonRatingComponent } from '../button-rating/button-rating.component'
 import { Track } from '../../interfaces';
 
 @Component({
-  selector: 'app-track-table',
-  standalone: true,
-  imports: [ButtonRatingComponent, DatePipe, DecimalPipe, NgIf, UpperCasePipe],
-  templateUrl: './track-table.component.html',
-  styleUrl: './track-table.component.css'
+    selector: 'app-track-table',
+    imports: [ButtonRatingComponent, DatePipe, DecimalPipe, NgIf, UpperCasePipe],
+    templateUrl: './track-table.component.html',
+    styleUrl: './track-table.component.css'
 })
 export class TrackTableComponent {
   @Input() track!: Track;

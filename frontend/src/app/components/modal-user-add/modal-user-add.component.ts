@@ -5,11 +5,10 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserModel } from '../../models';
 
 @Component({
-  selector: 'app-modal-user-add',
-  standalone: true,
-  imports: [FormsModule, NgFor],
-  templateUrl: './modal-user-add.component.html',
-  styleUrl: './modal-user-add.component.css'
+    selector: 'app-modal-user-add',
+    imports: [FormsModule, NgFor],
+    templateUrl: './modal-user-add.component.html',
+    styleUrl: './modal-user-add.component.css'
 })
 export class ModalUserAddComponent {
   @Input() user!: UserModel;

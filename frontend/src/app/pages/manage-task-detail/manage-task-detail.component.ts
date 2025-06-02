@@ -5,11 +5,10 @@ import { MixMatchService } from '../../services/mixmatch.service';
 import { Task, TaskResult } from '../../interfaces';
 
 @Component({
-  selector: 'app-manage-task-detail',
-  standalone: true,
-  imports: [DatePipe, NgFor, NgIf],
-  templateUrl: './manage-task-detail.component.html',
-  styleUrl: './manage-task-detail.component.css'
+    selector: 'app-manage-task-detail',
+    imports: [DatePipe, NgFor, NgIf],
+    templateUrl: './manage-task-detail.component.html',
+    styleUrl: './manage-task-detail.component.css'
 })
 export class ManageTaskDetailComponent {
   task?: Task;

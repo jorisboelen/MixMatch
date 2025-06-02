@@ -6,11 +6,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ToastNotificationComponent } from './components/toast-notification/toast-notification.component';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [AudioPlayerComponent, CommonModule, RouterOutlet, NavbarComponent, NgIf, ToastNotificationComponent],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    imports: [AudioPlayerComponent, CommonModule, RouterOutlet, NavbarComponent, NgIf, ToastNotificationComponent],
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   constructor(public location: Location) {}

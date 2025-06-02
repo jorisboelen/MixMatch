@@ -8,11 +8,10 @@ import { User } from '../../interfaces';
 import { UserModel } from '../../models';
 
 @Component({
-  selector: 'app-navbar',
-  standalone: true,
-  imports: [NgIf, RouterLink],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+    selector: 'app-navbar',
+    imports: [NgIf, RouterLink],
+    templateUrl: './navbar.component.html',
+    styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
   current_user?: User;

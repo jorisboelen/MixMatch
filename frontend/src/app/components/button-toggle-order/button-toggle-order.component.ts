@@ -2,11 +2,10 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'app-button-toggle-order',
-  standalone: true,
-  imports: [NgClass],
-  templateUrl: './button-toggle-order.component.html',
-  styleUrl: './button-toggle-order.component.css'
+    selector: 'app-button-toggle-order',
+    imports: [NgClass],
+    templateUrl: './button-toggle-order.component.html',
+    styleUrl: './button-toggle-order.component.css'
 })
 export class ButtonToggleOrderComponent {
   @Input() label!: string;

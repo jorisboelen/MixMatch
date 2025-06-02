@@ -4,11 +4,10 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { PlaylistModel } from '../../models';
 
 @Component({
-  selector: 'app-modal-playlist-add',
-  standalone: true,
-  imports: [FormsModule],
-  templateUrl: './modal-playlist-add.component.html',
-  styleUrl: './modal-playlist-add.component.css'
+    selector: 'app-modal-playlist-add',
+    imports: [FormsModule],
+    templateUrl: './modal-playlist-add.component.html',
+    styleUrl: './modal-playlist-add.component.css'
 })
 export class ModalPlaylistAddComponent {
   @Input() playlist!: PlaylistModel;

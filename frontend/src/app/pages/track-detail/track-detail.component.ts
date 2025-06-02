@@ -11,11 +11,10 @@ import { PlaylistResponse, Track } from '../../interfaces';
 import { PlaylistItemModel } from '../../models';
 
 @Component({
-  selector: 'app-track-detail',
-  standalone: true,
-  imports: [LowerCasePipe, TrackTableComponent, NgIf, RouterLink],
-  templateUrl: './track-detail.component.html',
-  styleUrl: './track-detail.component.css'
+    selector: 'app-track-detail',
+    imports: [LowerCasePipe, TrackTableComponent, NgIf, RouterLink],
+    templateUrl: './track-detail.component.html',
+    styleUrl: './track-detail.component.css'
 })
 export class TrackDetailComponent {
   track?: Track;

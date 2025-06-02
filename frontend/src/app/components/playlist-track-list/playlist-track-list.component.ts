@@ -7,11 +7,10 @@ import { ModalPlaylistEditComponent } from '../../components/modal-playlist-edit
 import { Playlist } from '../../interfaces';
 
 @Component({
-  selector: 'app-playlist-track-list',
-  standalone: true,
-  imports: [DatePipe, NgFor, RouterLink],
-  templateUrl: './playlist-track-list.component.html',
-  styleUrl: './playlist-track-list.component.css'
+    selector: 'app-playlist-track-list',
+    imports: [DatePipe, NgFor, RouterLink],
+    templateUrl: './playlist-track-list.component.html',
+    styleUrl: './playlist-track-list.component.css'
 })
 export class PlaylistTrackListComponent {
   @Input() playlist!: Playlist;

@@ -10,11 +10,10 @@ import { ModalPlaylistEditComponent } from '../../components/modal-playlist-edit
 import { NotificationLevel, Playlist, PlaylistItem } from '../../interfaces';
 
 @Component({
-  selector: 'app-playlist-detail',
-  standalone: true,
-  imports: [CdkDrag, CdkDropList, DatePipe, NgFor, NgIf, RouterLink],
-  templateUrl: './playlist-detail.component.html',
-  styleUrl: './playlist-detail.component.css'
+    selector: 'app-playlist-detail',
+    imports: [CdkDrag, CdkDropList, DatePipe, NgFor, NgIf, RouterLink],
+    templateUrl: './playlist-detail.component.html',
+    styleUrl: './playlist-detail.component.css'
 })
 export class PlaylistDetailComponent {
   playlist?: Playlist;

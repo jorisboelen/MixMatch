@@ -6,11 +6,10 @@ import { Genre } from '../../interfaces';
 import { TrackSearchQueryModel } from '../../models';
 
 @Component({
-  selector: 'app-modal-track-filter',
-  standalone: true,
-  imports: [FormsModule, NgFor],
-  templateUrl: './modal-track-filter.component.html',
-  styleUrl: './modal-track-filter.component.css'
+    selector: 'app-modal-track-filter',
+    imports: [FormsModule, NgFor],
+    templateUrl: './modal-track-filter.component.html',
+    styleUrl: './modal-track-filter.component.css'
 })
 export class ModalTrackFilterComponent {
   @Input() genre_list!: Genre[];

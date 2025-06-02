@@ -6,11 +6,10 @@ import { PlaylistItemModel } from '../../models';
 import { PlaylistResponse } from '../../interfaces';
 
 @Component({
-  selector: 'app-modal-playlist-item-add',
-  standalone: true,
-  imports: [FormsModule, NgFor, NgIf],
-  templateUrl: './modal-playlist-item-add.component.html',
-  styleUrl: './modal-playlist-item-add.component.css'
+    selector: 'app-modal-playlist-item-add',
+    imports: [FormsModule, NgFor, NgIf],
+    templateUrl: './modal-playlist-item-add.component.html',
+    styleUrl: './modal-playlist-item-add.component.css'
 })
 export class ModalPlaylistItemAddComponent {
   @Input() modal_title: string = '';

@@ -11,11 +11,10 @@ import { Task, TaskRunning, User } from '../../interfaces';
 import { UserModel } from '../../models';
 
 @Component({
-  selector: 'app-manage',
-  standalone: true,
-  imports: [DatePipe, NavbarResourcesComponent, NgClass, NgFor, NgIf, RouterLink],
-  templateUrl: './manage.component.html',
-  styleUrl: './manage.component.css'
+    selector: 'app-manage',
+    imports: [DatePipe, NavbarResourcesComponent, NgClass, NgFor, NgIf, RouterLink],
+    templateUrl: './manage.component.html',
+    styleUrl: './manage.component.css'
 })
 export class ManageComponent {
   current_user?: User;

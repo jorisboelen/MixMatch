@@ -9,11 +9,10 @@ import { PlaylistResponse, Playlist, User } from '../../interfaces';
 import { PlaylistModel } from '../../models';
 
 @Component({
-  selector: 'app-playlist',
-  standalone: true,
-  imports: [NgFor, NgIf, PaginationComponent, PlaylistTrackListComponent],
-  templateUrl: './playlist.component.html',
-  styleUrl: './playlist.component.css'
+    selector: 'app-playlist',
+    imports: [NgFor, NgIf, PaginationComponent, PlaylistTrackListComponent],
+    templateUrl: './playlist.component.html',
+    styleUrl: './playlist.component.css'
 })
 export class PlaylistComponent {
   playlist_list?: PlaylistResponse;

@@ -4,11 +4,10 @@ import { AudioService } from '../../services/audio.service';
 import { StreamState } from '../../interfaces';
 
 @Component({
-  selector: 'app-audio-player',
-  standalone: true,
-  imports: [NgIf],
-  templateUrl: './audio-player.component.html',
-  styleUrl: './audio-player.component.css'
+    selector: 'app-audio-player',
+    imports: [NgIf],
+    templateUrl: './audio-player.component.html',
+    styleUrl: './audio-player.component.css'
 })
 export class AudioPlayerComponent {
   stream_state?: StreamState;

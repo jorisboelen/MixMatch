@@ -4,11 +4,10 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserModel } from '../../models';
 
 @Component({
-  selector: 'app-modal-user-reset',
-  standalone: true,
-  imports: [FormsModule],
-  templateUrl: './modal-user-reset.component.html',
-  styleUrl: './modal-user-reset.component.css'
+    selector: 'app-modal-user-reset',
+    imports: [FormsModule],
+    templateUrl: './modal-user-reset.component.html',
+    styleUrl: './modal-user-reset.component.css'
 })
 export class ModalUserResetComponent {
   @Input() user!: UserModel;

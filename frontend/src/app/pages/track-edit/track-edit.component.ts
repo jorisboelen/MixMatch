@@ -6,11 +6,10 @@ import { MixMatchService } from '../../services/mixmatch.service';
 import { Genre, Track } from '../../interfaces';
 
 @Component({
-  selector: 'app-track-edit',
-  standalone: true,
-  imports: [FormsModule, NgFor, NgIf],
-  templateUrl: './track-edit.component.html',
-  styleUrl: './track-edit.component.css'
+    selector: 'app-track-edit',
+    imports: [FormsModule, NgFor, NgIf],
+    templateUrl: './track-edit.component.html',
+    styleUrl: './track-edit.component.css'
 })
 export class TrackEditComponent {
   track?: Track;

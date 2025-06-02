@@ -13,11 +13,10 @@ import { Genre, PlaylistResponse, Track, TrackResponse } from '../../interfaces'
 import { TrackSearchQueryModel, PlaylistItemModel } from '../../models';
 
 @Component({
-  selector: 'app-track',
-  standalone: true,
-  imports: [ButtonRatingComponent, ButtonToggleOrderComponent, DatePipe, NgClass, NgFor, NgIf, PaginationComponent, RouterLink],
-  templateUrl: './track.component.html',
-  styleUrl: './track.component.css'
+    selector: 'app-track',
+    imports: [ButtonRatingComponent, ButtonToggleOrderComponent, DatePipe, NgClass, NgFor, NgIf, PaginationComponent, RouterLink],
+    templateUrl: './track.component.html',
+    styleUrl: './track.component.css'
 })
 export class TrackComponent {
   genre_list?: Genre[];
