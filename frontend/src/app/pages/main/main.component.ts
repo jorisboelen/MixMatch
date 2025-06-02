@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { ButtonStatsComponent } from '../../components/button-stats/button-stats.component';
 import { TrackListComponent } from '../../components/track-list/track-list.component';
 import { MixMatchService } from '../../services/mixmatch.service';
@@ -7,7 +7,7 @@ import { PlaylistResponse, TrackResponse } from '../../interfaces';
 
 @Component({
     selector: 'app-main',
-    imports: [NgFor, NgIf, ButtonStatsComponent, TrackListComponent],
+    imports: [NgIf, ButtonStatsComponent, TrackListComponent],
     templateUrl: './main.component.html',
     styleUrl: './main.component.css'
 })
