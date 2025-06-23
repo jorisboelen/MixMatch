@@ -17,9 +17,9 @@ def parse_bpm(values: Any) -> Any:
 
 def parse_date(values: Any) -> Any:
     def parse_date_value(value: str) -> date:
-        if match(r'^[1-9][0-9][0-9][0-9]-[0-1][1-9]-[0-3][1-9]$', value):
+        if match(r'^[1-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]$', value):
             return datetime.strptime(value, '%Y-%m-%d').date()
-        elif match(r'^[1-9][0-9][0-9][0-9]-[0-1][1-9]$', value):
+        elif match(r'^[1-9][0-9][0-9][0-9]-[0-1][0-9]$', value):
             return datetime.strptime(value, '%Y-%m').date()
         elif match(r'^[1-9][0-9][0-9][0-9]$', value):
             return datetime.strptime(value, '%Y').date()
