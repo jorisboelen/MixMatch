@@ -1,2 +1,5 @@
+from importlib.metadata import version
+
+
 __application__ = 'MixMatch'
-__version__ = '0.0.1'
+__version__ = version(__application__)

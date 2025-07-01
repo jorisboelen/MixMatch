@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools >= 72.0"]
+requires = ["setuptools>=72.0", "setuptools-scm>=8"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "mixmatch"
-version = "0.0.1"
+dynamic = ["version"]
 requires-python = ">=3.11, <3.12"
 dependencies = [
     "alembic==1.16.1",
@@ -26,8 +26,9 @@ dependencies = [
     "uvicorn[standard]==0.34.3"
 ]
 
-[project.optional-dependencies]
-dev = ["bump-my-version==1.1.4", "httpx==0.28.1", "pytest==8.3.5", "tox==4.26.0", "Faker==37.3.0"]
+[dependency-groups]
+dev = ["setuptools", "setuptools-scm", {include-group = "test"}]
+test = ["httpx==0.28.1", "pytest==8.3.5", "tox==4.26.0", "Faker==37.3.0"]
 
 [project.scripts]
 mixmatch = "mixmatch.__main__:main"
@@ -35,20 +36,8 @@ mixmatch = "mixmatch.__main__:main"
 [tool.setuptools.packages.find]
 include = ["mixmatch", "mixmatch.*"]
 
-[tool.bumpversion]
-current_version = "0.0.1"
-commit = true
-tag = true
-
-[[tool.bumpversion.files]]
-filename = "pyproject.toml"
-search = "version = \"{current_version}\""
-replace = "version = \"{new_version}\""
-
-[[tool.bumpversion.files]]
-filename = "mixmatch/__init__.py"
-search = "__version__ = '{current_version}'"
-replace = "__version__ = '{new_version}'"
+[tool.setuptools_scm]
+root = ".."
 
 [tool.tox]
 requires = ["tox>=4.23"]
@@ -56,6 +45,6 @@ env_list = ["3.11"]
 
 [tool.tox.env_run_base]
 description = "run unit tests"
-extras = ["dev"]
+dependency_groups = ["test"]
 set_env = {BASE_DIRECTORY="{envtmpdir}", IMAGE_DIRECTORY="{envtmpdir}/images", MUSIC_DIRECTORY="{envtmpdir}"}
 commands = [["pytest", "tests"]]

@@ -22,5 +22,5 @@ jobs:
                 with:
                     compose-file: "./backend/tests/resources/docker/docker-compose.yml"
             -   run: |
-                    pip install .[dev]
+                    pip install . --group test
                     tox -q
