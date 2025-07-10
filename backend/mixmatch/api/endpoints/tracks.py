@@ -88,11 +88,11 @@ def patch_track(track_id: int, track: TrackUpdate, db: Session = Depends(get_db)
     else:
         genre = crud.get_genre(db=db, genre_id=track.genre_id)
     music_file = mixmatch_file(file_path=Path(db_track.path))
-    music_file.artist = track.artist
-    music_file.title = track.title
-    music_file.album = track.album
+    music_file.artist = track.artist or db_track.artist
+    music_file.title = track.title or db_track.title
+    music_file.album = track.album or db_track.album
     music_file.genre = genre.name
-    music_file.date = track.date
+    music_file.date = track.date or db_track.date
     music_file.save()
     return crud.update_track(db=db, track=db_track,
                              track_data={**music_file.model_dump(exclude={'cover', 'genre'}),

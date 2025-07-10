@@ -90,6 +90,17 @@ class TestAdmin:
         assert datetime.strptime(response.json().get('date'), '%Y-%m-%d').date() == track.date
         assert response.json().get('rating') == track.rating
 
+    def test_patch_track_rating(self, track, genre):
+        track.rating = fake.random_int(min=0, max=5)
+        response = client.patch(f"/api/tracks/{track.id}", json={'rating': track.rating})
+        assert response.status_code == 200
+        assert response.json().get('artist') == track.artist
+        assert response.json().get('title') == track.title
+        assert response.json().get('album') == track.album
+        assert response.json().get('genre').get('id') == track.genre_id
+        assert datetime.strptime(response.json().get('date'), '%Y-%m-%d').date() == track.date
+        assert response.json().get('rating') == track.rating
+
     def test_delete_track(self, track):
         response = client.delete(f"/api/tracks/{track.id}")
         assert response.status_code == 204
