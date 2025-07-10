@@ -1,0 +1,58 @@
+---
+services:
+    web:
+        container_name: mixmatch-web
+        image: ${MIXMATCH_WEB_IMAGE:-jboelen/mixmatch-web:latest}
+        environment:
+            - MIXMATCH_HOSTNAME=${MIXMATCH_HOSTNAME:-localhost}
+            - MIXMATCH_PROXYPROTOCOL=${MIXMATCH_PROXYPROTOCOL:-false}
+            - MIXMATCH_SSL_SELFSIGNED=${MIXMATCH_SSL_SELFSIGNED:-true}
+            - MIXMATCH_PUID=${MIXMATCH_PUID:-1000}
+            - MIXMATCH_PGID=${MIXMATCH_PGID:-1000}
+        ports:
+            - "4433:443"
+        volumes:
+            - ${MIXMATCH_VOLUME_MUSIC:-./music}:/data/music
+            - ${MIXMATCH_VOLUME_IMAGE:-./image}:/data/image
+        depends_on:
+            - api
+        restart: unless-stopped
+
+    api:
+        container_name: mixmatch-api
+        image: ${MIXMATCH_API_IMAGE:-jboelen/mixmatch-api:latest}
+        environment:
+            - MIXMATCH_PUID=${MIXMATCH_PUID:-1000}
+            - MIXMATCH_PGID=${MIXMATCH_PGID:-1000}
+            - POSTGRES_DB=${POSTGRES_DB:-mixmatch}
+            - POSTGRES_USER=${POSTGRES_USER:-mixmatch}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-mixmatch}
+            - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER:-mixmatch}
+            - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS:-mixmatch}
+        volumes:
+            - ${MIXMATCH_VOLUME_MUSIC:-./music}:/data/music
+            - ${MIXMATCH_VOLUME_IMAGE:-./image}:/data/image
+        depends_on:
+            - db
+            - rabbitmq
+        restart: unless-stopped
+
+    db:
+        container_name: mixmatch-db
+        image: ${POSTGRES_IMAGE:-postgres:16.9}
+        command: -c 'max_connections=100'
+        environment:
+            - POSTGRES_DB=${POSTGRES_DB:-mixmatch}
+            - POSTGRES_USER=${POSTGRES_USER:-mixmatch}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-mixmatch}
+        volumes:
+            - ${POSTGRES_VOLUME:-./postgresql}:/var/lib/postgresql/data/
+        restart: unless-stopped
+
+    rabbitmq:
+        container_name: mixmatch-rabbitmq
+        image: ${RABBITMQ_IMAGE:-rabbitmq:3}
+        environment:
+            - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER:-mixmatch}
+            - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS:-mixmatch}
+        restart: unless-stopped
