@@ -27,7 +27,7 @@ RUN pip install --no-cache-dir mixmatch-*.tar.gz && rm -f mixmatch-*.tar.gz
 COPY docker /
 
 # create mixmatch user
-RUN useradd -u 911 -U -d ${BASE_DIRECTORY} mixmatch && \
+RUN useradd -u 1000 -U -d ${BASE_DIRECTORY} mixmatch && \
     usermod -G users mixmatch
 
 HEALTHCHECK CMD ["bash", "/etc/health_check.sh"]
