@@ -1,0 +1,14 @@
+<div class="card shadow-sm">
+  <div class="card-header">
+    <h4 class="my-0 fw-normal text-truncate">{{ label }}</h4>
+  </div>
+  <div class="card-body">
+    <ul class="card-text list-unstyled" *ngIf="trackResponse">
+      <li *ngFor="let track of trackResponse.items" class="text-truncate">
+        <a class="link-dark text-decoration-none" routerLink="/track/{{track.id}}">
+          {{ track.artist }} - {{ track.title }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

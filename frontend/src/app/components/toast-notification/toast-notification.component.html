@@ -1,0 +1,6 @@
+<ngb-toast
+  *ngFor="let notification of notificationService.getNotifications()"
+  [autohide]="true" [delay]="notification.level == 'danger' ? 5000 : 2500"
+  [class]="notification.level == 'danger' || notification.level == 'warning' ? 'bg-danger text-light' : 'bg-success text-light'"
+  (hiddden)="notificationService.removeNotification(notification)"
+>{{notification.message}}</ngb-toast>

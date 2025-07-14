@@ -1,0 +1,15 @@
+<form *ngIf="playlist_list && playlist_item" (ngSubmit)="activeModal.close()">
+  <div class="modal-header">
+    <h4 class="modal-title text-truncate" id="modal-basic-title">{{ modal_title }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <select name="playlist" id="id_playlist" class="form-select" aria-label="Playlist" [(ngModel)]="playlist_item.playlist_id">
+      <option *ngFor="let playlist of playlist_list.items" [value]="playlist.id">{{ playlist.name }}</option>
+    </select>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Close</button>
+    <button type="submit" ngbAutofocus class="btn btn-primary" (click)="activeModal.close()">Save</button>
+  </div>
+</form>

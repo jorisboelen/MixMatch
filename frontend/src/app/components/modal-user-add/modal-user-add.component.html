@@ -1,0 +1,27 @@
+<form (ngSubmit)="activeModal.close()">
+  <div class="modal-header">
+    <h4 class="modal-title text-truncate" id="modal-basic-title">Add User</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <p class="input-group">
+      <span class="input-group-text" style="width: 100px">username</span>
+      <input type="text" class="form-control" name="username" id="id_username" maxlength="150" required [(ngModel)]="user.username">
+    </p>
+    <p class="input-group">
+      <span class="input-group-text" style="width: 100px">password</span>
+      <input type="password" class="form-control" name="password" id="id_password" maxlength="128" required [(ngModel)]="user.password">
+    </p>
+    <p class="input-group">
+      <span class="input-group-text" style="width: 100px">type</span>
+      <select class="form-select" aria-label="Type" name="type" id="id_type" [(ngModel)]="user.is_admin" required>
+        <option [value]="true">Admin</option>
+        <option [value]="false">User</option>
+      </select>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Close</button>
+    <button type="submit" ngbAutofocus class="btn btn-primary">Save</button>
+  </div>
+</form>

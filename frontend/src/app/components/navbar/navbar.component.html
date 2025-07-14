@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <div class="container-xxl">
+    <a class="navbar-brand" routerLink="">MixMatch</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item active">
+          <a class="nav-link" aria-current="page" routerLink="/track">Music</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" aria-current="page" routerLink="/playlist">Playlist</a>
+        </li>
+
+        <li *ngIf="isAdminUser()" class="nav-item active">
+          <a class="nav-link" aria-current="page" routerLink="/manage">Manage</a>
+        </li>
+
+      </ul>
+
+      <div class="navbar-nav d-flex dropdown">
+        <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+          </svg>
+
+        </button>
+        <ul *ngIf="current_user" class="dropdown-menu">
+          <li><h6 class="dropdown-header">{{ current_user.username }}</h6></li>
+          <li><button class="dropdown-item" (click)="openUserResetModal(current_user.username)">Change Password</button></li>
+          <li><button class="dropdown-item" (click)="logout()">Logout</button></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</nav>

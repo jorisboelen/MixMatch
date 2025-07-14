@@ -1,0 +1,3 @@
+exclude development.env
+recursive-exclude docker *
+recursive-exclude tests *

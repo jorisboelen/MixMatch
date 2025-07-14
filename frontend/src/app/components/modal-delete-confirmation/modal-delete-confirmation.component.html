@@ -1,0 +1,11 @@
+<div class="modal-header">
+  <h4 class="modal-title text-truncate" id="modal-basic-title">{{ modal_title }}</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+<div class="modal-body">
+  {{ modal_body }}
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Close</button>
+  <button type="button" ngbAutofocus class="btn btn-primary" (click)="activeModal.close()">Delete</button>
+</div>

@@ -1,0 +1,24 @@
+<div class="col">
+  <div class="card shadow-sm">
+    <div class="card-header">
+      <h4 class="my-0 fw-normal text-truncate"><a routerLink="/playlist/{{playlist.id}}" class="link-dark text-decoration-none">{{ playlist.name }}</a></h4>
+    </div>
+    <div class="card-body">
+      <ul class="card-text list-unstyled">
+        <li *ngFor="let playlist_item of playlist.playlist_items" class="text-truncate">
+          <a class="link-dark text-decoration-none" routerLink="/track/{{playlist_item.track.id}}">
+            {{ playlist_item.track.artist }} - {{ playlist_item.track.title }}
+          </a>
+        </li>
+      </ul>
+      <div class="d-flex justify-content-between align-items-center">
+        <small class="text-muted">Modified: {{ playlist.modified | date : 'medium' }}</small>
+        <small class="bi bi-three-dots clickable" id="action-1" data-bs-toggle="dropdown" aria-expanded="false"></small>
+        <ul class="dropdown-menu" aria-labelledby="action-">
+          <li><button class="dropdown-item" (click)="openPlaylistEditModal(playlist)">Edit</button></li>
+          <li><button class="dropdown-item" (click)="openPlaylistDeleteModal(playlist)">Delete</button></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

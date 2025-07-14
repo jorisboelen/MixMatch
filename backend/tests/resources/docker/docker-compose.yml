@@ -1,0 +1,18 @@
+---
+services:
+    db:
+        container_name: mixmatch-db
+        image: postgres:16.9
+        command: -c 'max_connections=250'
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_USER: mixmatch
+            POSTGRES_PASSWORD: mixmatch
+            POSTGRES_DB: mixmatch
+
+    rabbitmq:
+        container_name: mixmatch-rabbitmq
+        image: rabbitmq:3
+        ports:
+            - "5672:5672"
