@@ -1,8 +1,8 @@
 # MixMatch
-[![GitHub Release](https://img.shields.io/github/v/release/jorisboelen/MixMatch?logo=github)](https://github.com/jorisboelen/PixelPerfect/releases/latest)
-[![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/jorisboelen/MixMatch/total?logo=github)](https://github.com/jorisboelen/PixelPerfect/releases)
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jorisboelen/MixMatch/build-package-publish.yml?logo=github)](https://github.com/jorisboelen/PixelPerfect/actions)
-[![GitHub License](https://img.shields.io/github/license/jorisboelen/MixMatch)](https://github.com/jorisboelen/PixelPerfect/blob/main/LICENSE)
+[![GitHub Release](https://img.shields.io/github/v/release/jorisboelen/MixMatch?logo=github)](https://github.com/jorisboelen/MixMatch/releases/latest)
+[![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/jorisboelen/MixMatch/total?logo=github)](https://github.com/jorisboelen/MixMatch/releases)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/jorisboelen/MixMatch/build-package-publish.yml?logo=github)](https://github.com/jorisboelen/MixMatch/actions)
+[![GitHub License](https://img.shields.io/github/license/jorisboelen/MixMatch)](https://github.com/jorisboelen/MixMatch/blob/main/LICENSE)
 [![Docker Image Version](https://img.shields.io/docker/v/jboelen/mixmatch?sort=semver&logo=docker)](https://hub.docker.com/r/jboelen/pixelperfect)
 
 **MixMatch** is an open source music organizer for harmonic mixing.
