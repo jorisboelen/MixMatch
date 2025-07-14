@@ -104,4 +104,11 @@ services:
 
 Ensure the certificate files are named: `server.crt` and `server.key`.
 
+### Reset Password
+The password of the `mixmatch` user can be reset from the commandline:
+
+```shell
+docker exec -ti mixmatch-api mixmatch admin reset-password mixmatch
+```
+
 [PROXY protocol]: https://docs.nginx.com/nginx/admin-guide/load-balancer/using-proxy-protocol/
