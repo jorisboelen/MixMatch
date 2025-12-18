@@ -6,25 +6,29 @@
   </div>
 </div>
 
-<div *ngIf="playlist_list" class="album mb-4">
-  <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <app-playlist-track-list
-        *ngFor="let playlist of playlist_list.items"
-        [playlist]="playlist"
-        (deletePlaylistEvent)="deletePlaylist($event)"
-        (updatePlaylistEvent)="updatePlaylist($event)"
-      ></app-playlist-track-list>
+@if (playlist_list) {
+  <div class="album mb-4">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        @for (playlist of playlist_list.items; track playlist) {
+          <app-playlist-track-list
+            [playlist]="playlist"
+            (deletePlaylistEvent)="deletePlaylist($event)"
+            (updatePlaylistEvent)="updatePlaylist($event)"
+          ></app-playlist-track-list>
+        }
+      </div>
     </div>
   </div>
-</div>
+}
 
 <nav aria-label="playlist pagination">
-  <app-pagination
-    *ngIf="playlist_list"
-    [current_page]="current_page"
-    [items_count]="playlist_list.total"
-    [items_per_page]="playlist_list.size"
-    (changePageEvent)="changePage($event)">
-  </app-pagination>
+  @if (playlist_list) {
+    <app-pagination
+      [current_page]="current_page"
+      [items_count]="playlist_list.total"
+      [items_per_page]="playlist_list.size"
+      (changePageEvent)="changePage($event)">
+    </app-pagination>
+  }
 </nav>

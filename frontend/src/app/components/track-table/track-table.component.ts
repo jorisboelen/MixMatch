@@ -1,11 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { DatePipe, DecimalPipe, NgIf, UpperCasePipe } from '@angular/common';
+import { DatePipe, DecimalPipe, UpperCasePipe } from '@angular/common';
 import { ButtonRatingComponent } from '../button-rating/button-rating.component';
 import { Track } from '../../interfaces';
 
 @Component({
     selector: 'app-track-table',
-    imports: [ButtonRatingComponent, DatePipe, DecimalPipe, NgIf, UpperCasePipe],
+    imports: [ButtonRatingComponent, DatePipe, DecimalPipe, UpperCasePipe],
     templateUrl: './track-table.component.html',
     styleUrl: './track-table.component.css'
 })

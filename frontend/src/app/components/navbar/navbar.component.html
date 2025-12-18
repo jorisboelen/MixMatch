@@ -13,9 +13,11 @@
           <a class="nav-link" aria-current="page" routerLink="/playlist">Playlist</a>
         </li>
 
-        <li *ngIf="isAdminUser()" class="nav-item active">
-          <a class="nav-link" aria-current="page" routerLink="/manage">Manage</a>
-        </li>
+        @if (isAdminUser()) {
+          <li class="nav-item active">
+            <a class="nav-link" aria-current="page" routerLink="/manage">Manage</a>
+          </li>
+        }
 
       </ul>
 
@@ -27,11 +29,13 @@
           </svg>
 
         </button>
-        <ul *ngIf="current_user" class="dropdown-menu">
-          <li><h6 class="dropdown-header">{{ current_user.username }}</h6></li>
-          <li><button class="dropdown-item" (click)="openUserResetModal(current_user.username)">Change Password</button></li>
-          <li><button class="dropdown-item" (click)="logout()">Logout</button></li>
-        </ul>
+        @if (current_user) {
+          <ul class="dropdown-menu">
+            <li><h6 class="dropdown-header">{{ current_user.username }}</h6></li>
+            <li><button class="dropdown-item" (click)="openUserResetModal(current_user.username)">Change Password</button></li>
+            <li><button class="dropdown-item" (click)="logout()">Logout</button></li>
+          </ul>
+        }
       </div>
 
     </div>

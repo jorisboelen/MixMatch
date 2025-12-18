@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { NgIf } from '@angular/common';
+
 import { MixMatchService } from '../../services/mixmatch.service';
 
 @Component({
     selector: 'app-navbar-resources',
-    imports: [NgIf],
+    imports: [],
     templateUrl: './navbar-resources.component.html',
     styleUrl: './navbar-resources.component.css'
 })

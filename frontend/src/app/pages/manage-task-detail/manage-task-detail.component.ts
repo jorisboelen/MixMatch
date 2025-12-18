@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MixMatchService } from '../../services/mixmatch.service';
 import { Task, TaskResult } from '../../interfaces';
 
 @Component({
     selector: 'app-manage-task-detail',
-    imports: [DatePipe, NgFor, NgIf],
+    imports: [DatePipe],
     templateUrl: './manage-task-detail.component.html',
     styleUrl: './manage-task-detail.component.css'
 })

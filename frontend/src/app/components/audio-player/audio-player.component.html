@@ -1,22 +1,26 @@
-<div *ngIf="stream_state && stream_state.canplay" class="container-xxl py-1">
-  <div class="d-flex gap-2 align-items-center">
-    <div>
-      <div class="btn-group" role="group" aria-label="Audio Player Controls">
-        <button [hidden]="stream_state.playing" class="btn btn-lg btn-dark bi bi-play-circle" (click)="audioService.play()"></button>
-        <button [hidden]="!stream_state.playing" class="btn btn-lg btn-dark bi bi-pause-circle" (click)="audioService.pause()"></button>
-        <button class="btn btn-lg btn-dark bi bi-stop-circle" (click)="audioService.stop()"></button>
+@if (stream_state && stream_state.canplay) {
+  <div class="container-xxl py-1">
+    <div class="d-flex gap-2 align-items-center">
+      <div>
+        <div class="btn-group" role="group" aria-label="Audio Player Controls">
+          <button [hidden]="stream_state.playing" class="btn btn-lg btn-dark bi bi-play-circle" (click)="audioService.play()"></button>
+          <button [hidden]="!stream_state.playing" class="btn btn-lg btn-dark bi bi-pause-circle" (click)="audioService.pause()"></button>
+          <button class="btn btn-lg btn-dark bi bi-stop-circle" (click)="audioService.stop()"></button>
+        </div>
+      </div>
+      @if (stream_state.currentTime && stream_state.duration) {
+        <div class="flex-grow-1 pt-1">
+          <input type="range" class="form-range" min="0" max="{{ stream_state.duration }}" step="1" [value]="stream_state.currentTime" id="audio-progress" (change)="seekTo($event)">
+        </div>
+      }
+      <div>
+        <button [hidden]="stream_state.muted" class="btn btn-lg btn-dark bi bi-volume-up" (click)="audioService.mute(true)"></button>
+        <button [hidden]="!stream_state.muted" class="btn btn-lg btn-dark bi bi-volume-mute" (click)="audioService.mute(false)"></button>
+      </div>
+      <div class="pt-1">
+        <input [hidden]="stream_state.muted" type="range" class="form-range" min="0" max="1" step="0.1" [value]="stream_state.volume" id="audio-volume" (change)="changeVolume($event)">
+        <input [hidden]="!stream_state.muted" type="range" class="form-range" min="0" max="1" step="0.1" [value]="0" id="audio-volume-muted" disabled>
       </div>
     </div>
-    <div *ngIf="stream_state.currentTime && stream_state.duration" class="flex-grow-1 pt-1">
-      <input type="range" class="form-range" min="0" max="{{ stream_state.duration }}" step="1" [value]="stream_state.currentTime" id="audio-progress" (change)="seekTo($event)">
-    </div>
-    <div>
-      <button [hidden]="stream_state.muted" class="btn btn-lg btn-dark bi bi-volume-up" (click)="audioService.mute(true)"></button>
-      <button [hidden]="!stream_state.muted" class="btn btn-lg btn-dark bi bi-volume-mute" (click)="audioService.mute(false)"></button>
-    </div>
-    <div class="pt-1">
-      <input [hidden]="stream_state.muted" type="range" class="form-range" min="0" max="1" step="0.1" [value]="stream_state.volume" id="audio-volume" (change)="changeVolume($event)">
-      <input [hidden]="!stream_state.muted" type="range" class="form-range" min="0" max="1" step="0.1" [value]="0" id="audio-volume-muted" disabled>
-    </div>
   </div>
-</div>
+}

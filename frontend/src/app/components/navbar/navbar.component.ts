@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgIf } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MixMatchService } from '../../services/mixmatch.service';
@@ -9,7 +9,7 @@ import { UserModel } from '../../models';
 
 @Component({
     selector: 'app-navbar',
-    imports: [NgIf, RouterLink],
+    imports: [RouterLink],
     templateUrl: './navbar.component.html',
     styleUrl: './navbar.component.css'
 })
