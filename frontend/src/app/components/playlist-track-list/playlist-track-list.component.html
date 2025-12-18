@@ -5,11 +5,13 @@
     </div>
     <div class="card-body">
       <ul class="card-text list-unstyled">
-        <li *ngFor="let playlist_item of playlist.playlist_items" class="text-truncate">
-          <a class="link-dark text-decoration-none" routerLink="/track/{{playlist_item.track.id}}">
-            {{ playlist_item.track.artist }} - {{ playlist_item.track.title }}
-          </a>
-        </li>
+        @for (playlist_item of playlist.playlist_items; track playlist_item) {
+          <li class="text-truncate">
+            <a class="link-dark text-decoration-none" routerLink="/track/{{playlist_item.track.id}}">
+              {{ playlist_item.track.artist }} - {{ playlist_item.track.title }}
+            </a>
+          </li>
+        }
       </ul>
       <div class="d-flex justify-content-between align-items-center">
         <small class="text-muted">Modified: {{ playlist.modified | date : 'medium' }}</small>

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DatePipe, NgFor } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalDeleteConfirmationComponent } from '../../components/modal-delete-confirmation/modal-delete-confirmation.component';
@@ -8,7 +8,7 @@ import { Playlist } from '../../interfaces';
 
 @Component({
     selector: 'app-playlist-track-list',
-    imports: [DatePipe, NgFor, RouterLink],
+    imports: [DatePipe, RouterLink],
     templateUrl: './playlist-track-list.component.html',
     styleUrl: './playlist-track-list.component.css'
 })

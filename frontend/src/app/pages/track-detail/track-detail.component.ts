@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LowerCasePipe, NgIf } from '@angular/common';
+import { LowerCasePipe } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalDeleteConfirmationComponent } from '../../components/modal-delete-confirmation/modal-delete-confirmation.component';
@@ -12,7 +12,7 @@ import { PlaylistItemModel } from '../../models';
 
 @Component({
     selector: 'app-track-detail',
-    imports: [LowerCasePipe, TrackTableComponent, NgIf, RouterLink],
+    imports: [LowerCasePipe, TrackTableComponent, RouterLink],
     templateUrl: './track-detail.component.html',
     styleUrl: './track-detail.component.css'
 })

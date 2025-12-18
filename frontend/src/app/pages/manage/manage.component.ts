@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalDeleteConfirmationComponent } from '../../components/modal-delete-confirmation/modal-delete-confirmation.component';
@@ -12,7 +12,7 @@ import { UserModel } from '../../models';
 
 @Component({
     selector: 'app-manage',
-    imports: [DatePipe, NavbarResourcesComponent, NgClass, NgFor, NgIf, RouterLink],
+    imports: [DatePipe, NavbarResourcesComponent, NgClass, RouterLink],
     templateUrl: './manage.component.html',
     styleUrl: './manage.component.css'
 })

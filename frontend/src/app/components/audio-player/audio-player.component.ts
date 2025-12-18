@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { NgIf } from '@angular/common';
+
 import { AudioService } from '../../services/audio.service';
 import { StreamState } from '../../interfaces';
 
 @Component({
     selector: 'app-audio-player',
-    imports: [NgIf],
+    imports: [],
     templateUrl: './audio-player.component.html',
     styleUrl: './audio-player.component.css'
 })

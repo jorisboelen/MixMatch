@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -11,7 +11,7 @@ import { NotificationLevel, Playlist, PlaylistItem } from '../../interfaces';
 
 @Component({
     selector: 'app-playlist-detail',
-    imports: [CdkDrag, CdkDropList, DatePipe, NgFor, NgIf, RouterLink],
+    imports: [CdkDrag, CdkDropList, DatePipe, RouterLink],
     templateUrl: './playlist-detail.component.html',
     styleUrl: './playlist-detail.component.css'
 })

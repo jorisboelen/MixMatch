@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MixMatchService } from '../../services/mixmatch.service';
 import { ModalPlaylistAddComponent } from '../../components/modal-playlist-add/modal-playlist-add.component';
@@ -10,7 +10,7 @@ import { PlaylistModel } from '../../models';
 
 @Component({
     selector: 'app-playlist',
-    imports: [NgFor, NgIf, PaginationComponent, PlaylistTrackListComponent],
+    imports: [PaginationComponent, PlaylistTrackListComponent],
     templateUrl: './playlist.component.html',
     styleUrl: './playlist.component.css'
 })

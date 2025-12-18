@@ -9,46 +9,53 @@
 
 <table class="table table-light table-hover table-sm">
   <thead>
-  <tr>
-    <th><app-button-toggle-order [label]="'Artist'" [field]="'artist'" [current_sort_by]="search_query.sort_by" (toggleOrderingEvent)="toggleOrdering($event)"></app-button-toggle-order></th>
-    <th><app-button-toggle-order [label]="'Title'" [field]="'title'" [current_sort_by]="search_query.sort_by" (toggleOrderingEvent)="toggleOrdering($event)"></app-button-toggle-order></th>
-    <th class="d-none d-lg-table-cell">Genre</th>
-    <th class="d-none d-lg-table-cell"><app-button-toggle-order [label]="'Year'" [field]="'date'" [current_sort_by]="search_query.sort_by" (toggleOrderingEvent)="toggleOrdering($event)"></app-button-toggle-order></th>
-    <th class="d-none d-sm-table-cell"><app-button-toggle-order [label]="'BPM'" [field]="'bpm'" [current_sort_by]="search_query.sort_by" (toggleOrderingEvent)="toggleOrdering($event)"></app-button-toggle-order></th>
-    <th class="d-none d-sm-table-cell"><app-button-toggle-order [label]="'Key'" [field]="'key'" [current_sort_by]="search_query.sort_by" (toggleOrderingEvent)="toggleOrdering($event)"></app-button-toggle-order></th>
-    <th class="d-none d-xl-table-cell"><app-button-toggle-order [label]="'Rating'" [field]="'rating'" [current_sort_by]="search_query.sort_by" (toggleOrderingEvent)="toggleOrdering($event)"></app-button-toggle-order></th>
-    <th>&nbsp;</th>
-  </tr>
+    <tr>
+      <th><app-button-toggle-order [label]="'Artist'" [field]="'artist'" [current_sort_by]="search_query.sort_by" (toggleOrderingEvent)="toggleOrdering($event)"></app-button-toggle-order></th>
+      <th><app-button-toggle-order [label]="'Title'" [field]="'title'" [current_sort_by]="search_query.sort_by" (toggleOrderingEvent)="toggleOrdering($event)"></app-button-toggle-order></th>
+      <th class="d-none d-lg-table-cell">Genre</th>
+      <th class="d-none d-lg-table-cell"><app-button-toggle-order [label]="'Year'" [field]="'date'" [current_sort_by]="search_query.sort_by" (toggleOrderingEvent)="toggleOrdering($event)"></app-button-toggle-order></th>
+      <th class="d-none d-sm-table-cell"><app-button-toggle-order [label]="'BPM'" [field]="'bpm'" [current_sort_by]="search_query.sort_by" (toggleOrderingEvent)="toggleOrdering($event)"></app-button-toggle-order></th>
+      <th class="d-none d-sm-table-cell"><app-button-toggle-order [label]="'Key'" [field]="'key'" [current_sort_by]="search_query.sort_by" (toggleOrderingEvent)="toggleOrdering($event)"></app-button-toggle-order></th>
+      <th class="d-none d-xl-table-cell"><app-button-toggle-order [label]="'Rating'" [field]="'rating'" [current_sort_by]="search_query.sort_by" (toggleOrderingEvent)="toggleOrdering($event)"></app-button-toggle-order></th>
+      <th>&nbsp;</th>
+    </tr>
   </thead>
-  <tbody *ngIf="track_list">
-  <tr *ngFor="let track of track_list.items">
-    <td><a class="link-dark text-decoration-none" routerLink="/track/{{track.id}}">{{ track.artist }}</a></td>
-    <td><a class="link-dark text-decoration-none" routerLink="/track/{{track.id}}">{{ track.title }}</a></td>
-    <td class="d-none d-lg-table-cell">{{ track.genre.name }}</td>
-    <td class="d-none d-lg-table-cell">{{ track.date | date : "yyyy" }}</td>
-    <td class="d-none d-sm-table-cell">{{ track.bpm }}</td>
-    <td class="d-none d-sm-table-cell">{{ track.key }}</td>
-    <td class="d-none d-xl-table-cell"><app-button-rating [track]="track" (updateTrackRatingEvent)="updateTrackRating($event)"></app-button-rating></td>
-    <td>
-      <div *ngIf="isAdminUser()" class="dropdown">
-        <button class="bi bi-three-dots page-link" id="action" data-bs-toggle="dropdown" aria-expanded="false"></button>
-        <ul class="dropdown-menu" aria-labelledby="action">
-          <li><button class="dropdown-item" (click)="openPlaylistItemAddModal(track)">Add to Playlist</button></li>
-          <li><a class="dropdown-item" routerLink="/track/{{track.id}}/edit">Edit</a></li>
-          <li><button class="dropdown-item" (click)="openTrackDeleteModal(track)">Delete</button></li>
-        </ul>
-      </div>
-    </td>
-  </tr>
-  </tbody>
+  @if (track_list) {
+    <tbody>
+      @for (track of track_list.items; track track) {
+        <tr>
+          <td><a class="link-dark text-decoration-none" routerLink="/track/{{track.id}}">{{ track.artist }}</a></td>
+          <td><a class="link-dark text-decoration-none" routerLink="/track/{{track.id}}">{{ track.title }}</a></td>
+          <td class="d-none d-lg-table-cell">{{ track.genre.name }}</td>
+          <td class="d-none d-lg-table-cell">{{ track.date | date : "yyyy" }}</td>
+          <td class="d-none d-sm-table-cell">{{ track.bpm }}</td>
+          <td class="d-none d-sm-table-cell">{{ track.key }}</td>
+          <td class="d-none d-xl-table-cell"><app-button-rating [track]="track" (updateTrackRatingEvent)="updateTrackRating($event)"></app-button-rating></td>
+          <td>
+            @if (isAdminUser()) {
+              <div class="dropdown">
+                <button class="bi bi-three-dots page-link" id="action" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                <ul class="dropdown-menu" aria-labelledby="action">
+                  <li><button class="dropdown-item" (click)="openPlaylistItemAddModal(track)">Add to Playlist</button></li>
+                  <li><a class="dropdown-item" routerLink="/track/{{track.id}}/edit">Edit</a></li>
+                  <li><button class="dropdown-item" (click)="openTrackDeleteModal(track)">Delete</button></li>
+                </ul>
+              </div>
+            }
+          </td>
+        </tr>
+      }
+    </tbody>
+  }
 </table>
 
 <nav aria-label="track pagination">
-  <app-pagination
-    *ngIf="track_list"
-    [current_page]="current_page"
-    [items_count]="track_list.total"
-    [items_per_page]="track_list.size"
-    (changePageEvent)="changePage($event)">
-  </app-pagination>
+  @if (track_list) {
+    <app-pagination
+      [current_page]="current_page"
+      [items_count]="track_list.total"
+      [items_per_page]="track_list.size"
+      (changePageEvent)="changePage($event)">
+    </app-pagination>
+  }
 </nav>

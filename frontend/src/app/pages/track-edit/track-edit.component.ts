@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MixMatchService } from '../../services/mixmatch.service';
@@ -7,7 +7,7 @@ import { Genre, Track } from '../../interfaces';
 
 @Component({
     selector: 'app-track-edit',
-    imports: [FormsModule, NgFor, NgIf],
+    imports: [FormsModule],
     templateUrl: './track-edit.component.html',
     styleUrl: './track-edit.component.css'
 })

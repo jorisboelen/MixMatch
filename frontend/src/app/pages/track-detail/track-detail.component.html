@@ -1,38 +1,44 @@
-<div *ngIf="track" class="container">
-  <div class="row py-4">
-    <div class="col mx-auto">
-      <h1>
-        {{ track.artist }} - {{ track.title }}
-        <small *ngIf="isAdminUser()" class="bi bi-three-dots clickable" id="action" data-bs-toggle="dropdown" aria-expanded="false"></small>
-        <ul class="dropdown-menu" aria-labelledby="action">
-          <li><button class="dropdown-item" (click)="openPlaylistItemAddModal(track)">Add to Playlist</button></li>
-          <li><a class="dropdown-item" routerLink="/track/{{track.id}}/edit">Edit</a></li>
-          <li><button class="dropdown-item" (click)="openTrackDeleteModal(track)">Delete</button></li>
-        </ul>
-      </h1>
+@if (track) {
+  <div class="container">
+    <div class="row py-4">
+      <div class="col mx-auto">
+        <h1>
+          {{ track.artist }} - {{ track.title }}
+          @if (isAdminUser()) {
+            <small class="bi bi-three-dots clickable" id="action" data-bs-toggle="dropdown" aria-expanded="false"></small>
+          }
+          <ul class="dropdown-menu" aria-labelledby="action">
+            <li><button class="dropdown-item" (click)="openPlaylistItemAddModal(track)">Add to Playlist</button></li>
+            <li><a class="dropdown-item" routerLink="/track/{{track.id}}/edit">Edit</a></li>
+            <li><button class="dropdown-item" (click)="openTrackDeleteModal(track)">Delete</button></li>
+          </ul>
+        </h1>
+      </div>
     </div>
   </div>
-</div>
+}
 
-<div *ngIf="track && track_cover && track_media" class="container">
-  <div class="row align-items-center">
-    <div class="col-lg-4 col-xxl-3 mb-3">
-      <div class="card mx-auto" style="width: 300px;">
-        <img src="{{ track_cover }}" class="card-img-top" alt="cover">
-        <div class="card-body text-center">
-          <div class="d-grid gap-2">
-            <button class="btn btn-light bi bi-play-circle" (click)="playStream(track_media)"> Play</button>
-            <a class="btn btn-light bi bi-download" href="{{ track_media }}" download="{{ track.artist }} - {{ track.title }}.{{ track.type | lowercase }}" target="_blank"> Download</a>
+@if (track && track_cover && track_media) {
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-4 col-xxl-3 mb-3">
+        <div class="card mx-auto" style="width: 300px;">
+          <img src="{{ track_cover }}" class="card-img-top" alt="cover">
+          <div class="card-body text-center">
+            <div class="d-grid gap-2">
+              <button class="btn btn-light bi bi-play-circle" (click)="playStream(track_media)"> Play</button>
+              <a class="btn btn-light bi bi-download" href="{{ track_media }}" download="{{ track.artist }} - {{ track.title }}.{{ track.type | lowercase }}" target="_blank"> Download</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-lg-8 col-xxl-9">
-      <app-track-table
-        [track]="track"
-        [track_media]="track_media"
-        (updateTrackRatingEvent)="updateTrackRating($event)"
-      ></app-track-table>
+      <div class="col-lg-8 col-xxl-9">
+        <app-track-table
+          [track]="track"
+          [track_media]="track_media"
+          (updateTrackRatingEvent)="updateTrackRating($event)"
+        ></app-track-table>
+      </div>
     </div>
   </div>
-</div>
+}
