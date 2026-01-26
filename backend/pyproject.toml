@@ -21,7 +21,7 @@ dependencies = [
     "prettytable==3.16.0",
     "psycopg2-binary==2.9.10",
     "pydantic-settings==2.9.1",
-    "python-multipart==0.0.20",
+    "python-multipart==0.0.22",
     "sqlmodel==0.0.24",
     "uvicorn[standard]==0.34.3"
 ]
