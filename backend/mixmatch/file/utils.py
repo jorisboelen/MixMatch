@@ -7,7 +7,7 @@ essentia.log.warningActive = False
 import essentia.standard as es
 
 
-def calculate_bpm_key(path: FilePath) -> (str, int):
+def calculate_bpm_key(path: FilePath) -> tuple[int, str]:
     features, features_frames = es.MusicExtractor(rhythmStats=['mean'], tonalStats=['mean'])(str(path))
     bpm = round_bpm(features['rhythm.bpm'])
     key = MUSIC_KEYS_CAMELOT.get(str(f'{features["tonal.key_edma.key"]} {features["tonal.key_edma.scale"]}'))

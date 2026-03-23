@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from datetime import date as datetime_date
+from mixmatch.core.utils import replace_list_item
 from mutagen import File as MutagenFile, FileType as MutagenFileType, MutagenError
 from mutagen.flac import Picture as FlacPicture, FLAC
 from mutagen.id3 import APIC, PictureType, TALB, TBPM, TCON, TDRC, TIT2, TKEY, TPE1
@@ -55,8 +56,7 @@ class MixMatchFile(BaseModel, ABC):
 
     @artist.setter
     def artist(self, value: str):
-        self.artist_list.pop(0)
-        self.artist_list.insert(0, value)
+        replace_list_item(self.artist_list, 0, value)
 
     @computed_field
     @property
@@ -65,8 +65,7 @@ class MixMatchFile(BaseModel, ABC):
 
     @title.setter
     def title(self, value: str):
-        self.title_list.pop(0)
-        self.title_list.insert(0, value)
+        replace_list_item(self.title_list, 0, value)
 
     @computed_field
     @property
@@ -75,8 +74,7 @@ class MixMatchFile(BaseModel, ABC):
 
     @album.setter
     def album(self, value: str):
-        self.album_list.pop(0)
-        self.album_list.insert(0, value)
+        replace_list_item(self.album_list, 0, value)
 
     @computed_field
     @property
@@ -85,8 +83,7 @@ class MixMatchFile(BaseModel, ABC):
 
     @genre.setter
     def genre(self, value: str):
-        self.genre_list.pop(0)
-        self.genre_list.insert(0, value)
+        replace_list_item(self.genre_list, 0, value)
 
     @computed_field
     @property
@@ -95,8 +92,7 @@ class MixMatchFile(BaseModel, ABC):
 
     @date.setter
     def date(self, value: datetime_date):
-        self.date_list.pop(0)
-        self.date_list.insert(0, value)
+        replace_list_item(self.date_list, 0, value)
 
     @computed_field
     @property
@@ -105,8 +101,7 @@ class MixMatchFile(BaseModel, ABC):
 
     @bpm.setter
     def bpm(self, value: int):
-        self.bpm_list.pop(0)
-        self.bpm_list.insert(0, value)
+        replace_list_item(self.bpm_list, 0, value)
 
     @computed_field
     @property
@@ -115,8 +110,7 @@ class MixMatchFile(BaseModel, ABC):
 
     @key.setter
     def key(self, value: str):
-        self.key_list.pop(0)
-        self.key_list.insert(0, value)
+        replace_list_item(self.key_list, 0, value)
 
     @computed_field
     @property
