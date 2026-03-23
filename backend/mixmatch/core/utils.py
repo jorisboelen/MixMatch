@@ -3,6 +3,7 @@ from json import loads
 from math import modf
 from prettytable import PrettyTable
 from re import findall
+from typing import Any
 
 
 MUSIC_KEYS = ['1A', '1B', '2A', '2B', '3A', '3B', '4A', '4B', '5A', '5B', '6A', '6B',
@@ -66,6 +67,13 @@ def is_json(s: bytes) -> bool:
     except ValueError:
         return False
     return True
+
+
+def replace_list_item(item_list: list[Any], item_index: int, item_value: Any) -> list[Any]:
+    if len(item_list) > item_index:
+        item_list.pop(item_index)
+    item_list.insert(item_index, item_value)
+    return item_list
 
 
 def round_bpm(input_bpm: int | float) -> int:
