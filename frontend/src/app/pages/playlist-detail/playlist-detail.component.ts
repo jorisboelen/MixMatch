@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -13,6 +13,7 @@ import { NotificationLevel, Playlist, PlaylistItem } from '../../interfaces';
     selector: 'app-playlist-detail',
     imports: [CdkDrag, CdkDropList, DatePipe, RouterLink],
     templateUrl: './playlist-detail.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './playlist-detail.component.css'
 })
 export class PlaylistDetailComponent {

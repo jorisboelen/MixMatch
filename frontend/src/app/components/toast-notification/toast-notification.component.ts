@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationService } from '../../services/notification.service';
@@ -7,6 +7,7 @@ import { NotificationService } from '../../services/notification.service';
     selector: 'app-toast-notification',
     imports: [NgbToast],
     templateUrl: './toast-notification.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './toast-notification.component.css'
 })
 export class ToastNotificationComponent {

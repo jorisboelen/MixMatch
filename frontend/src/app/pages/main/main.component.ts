@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { ButtonStatsComponent } from '../../components/button-stats/button-stats.component';
 import { TrackListComponent } from '../../components/track-list/track-list.component';
@@ -9,6 +9,7 @@ import { PlaylistResponse, TrackResponse } from '../../interfaces';
     selector: 'app-main',
     imports: [ButtonStatsComponent, TrackListComponent],
     templateUrl: './main.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './main.component.css'
 })
 export class MainComponent {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DatePipe, NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -14,6 +14,7 @@ import { UserModel } from '../../models';
     selector: 'app-manage',
     imports: [DatePipe, NavbarResourcesComponent, NgClass, RouterLink],
     templateUrl: './manage.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './manage.component.css'
 })
 export class ManageComponent {

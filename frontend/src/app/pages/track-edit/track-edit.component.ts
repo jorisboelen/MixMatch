@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,6 +9,7 @@ import { Genre, Track } from '../../interfaces';
     selector: 'app-track-edit',
     imports: [FormsModule],
     templateUrl: './track-edit.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './track-edit.component.css'
 })
 export class TrackEditComponent {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MixMatchService } from '../../services/mixmatch.service';
@@ -8,6 +8,7 @@ import { Task, TaskResult } from '../../interfaces';
     selector: 'app-manage-task-detail',
     imports: [DatePipe],
     templateUrl: './manage-task-detail.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './manage-task-detail.component.css'
 })
 export class ManageTaskDetailComponent {

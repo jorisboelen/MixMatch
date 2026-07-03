@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -9,6 +9,7 @@ import { TrackSearchQueryModel } from '../../models';
     selector: 'app-modal-track-filter',
     imports: [FormsModule],
     templateUrl: './modal-track-filter.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './modal-track-filter.component.css'
 })
 export class ModalTrackFilterComponent {
