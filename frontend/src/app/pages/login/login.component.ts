@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MixMatchService } from '../../services/mixmatch.service';
 import { UserLoginModel } from '../../models';
@@ -7,6 +7,7 @@ import { UserLoginModel } from '../../models';
     selector: 'app-login',
     imports: [FormsModule],
     templateUrl: './login.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './login.component.css'
 })
 export class LoginComponent {

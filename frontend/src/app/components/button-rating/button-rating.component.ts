@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
 import { Track } from '../../interfaces';
 
@@ -6,6 +6,7 @@ import { Track } from '../../interfaces';
     selector: 'app-button-rating',
     imports: [NgbRating],
     templateUrl: './button-rating.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './button-rating.component.css'
 })
 export class ButtonRatingComponent {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserModel } from '../../models';
@@ -7,6 +7,7 @@ import { UserModel } from '../../models';
     selector: 'app-modal-user-reset',
     imports: [FormsModule],
     templateUrl: './modal-user-reset.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './modal-user-reset.component.css'
 })
 export class ModalUserResetComponent {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { MixMatchService } from '../../services/mixmatch.service';
 
@@ -6,6 +6,7 @@ import { MixMatchService } from '../../services/mixmatch.service';
     selector: 'app-navbar-resources',
     imports: [],
     templateUrl: './navbar-resources.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './navbar-resources.component.css'
 })
 export class NavbarResourcesComponent {

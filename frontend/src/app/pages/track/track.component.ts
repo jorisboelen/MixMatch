@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DatePipe, NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -16,6 +16,7 @@ import { TrackSearchQueryModel, PlaylistItemModel } from '../../models';
     selector: 'app-track',
     imports: [ButtonRatingComponent, ButtonToggleOrderComponent, DatePipe, NgClass, PaginationComponent, RouterLink],
     templateUrl: './track.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './track.component.css'
 })
 export class TrackComponent {

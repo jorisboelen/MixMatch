@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-modal-delete-confirmation',
     imports: [],
     templateUrl: './modal-delete-confirmation.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './modal-delete-confirmation.component.css'
 })
 export class ModalDeleteConfirmationComponent {

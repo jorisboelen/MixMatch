@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,6 +10,7 @@ import { Playlist } from '../../interfaces';
     selector: 'app-playlist-track-list',
     imports: [DatePipe, RouterLink],
     templateUrl: './playlist-track-list.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './playlist-track-list.component.css'
 })
 export class PlaylistTrackListComponent {

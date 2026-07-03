@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 import { RouterLink } from '@angular/router';
 import { TrackResponse } from '../../interfaces';
@@ -7,6 +7,7 @@ import { TrackResponse } from '../../interfaces';
     selector: 'app-track-list',
     imports: [RouterLink],
     templateUrl: './track-list.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './track-list.component.css'
 })
 export class TrackListComponent {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MixMatchService } from '../../services/mixmatch.service';
@@ -12,6 +12,7 @@ import { PlaylistModel } from '../../models';
     selector: 'app-playlist',
     imports: [PaginationComponent, PlaylistTrackListComponent],
     templateUrl: './playlist.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './playlist.component.css'
 })
 export class PlaylistComponent {

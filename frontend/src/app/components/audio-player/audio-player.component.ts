@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { AudioService } from '../../services/audio.service';
 import { StreamState } from '../../interfaces';
@@ -7,6 +7,7 @@ import { StreamState } from '../../interfaces';
     selector: 'app-audio-player',
     imports: [],
     templateUrl: './audio-player.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './audio-player.component.css'
 })
 export class AudioPlayerComponent {

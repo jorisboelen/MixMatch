@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -11,6 +11,7 @@ import { UserModel } from '../../models';
     selector: 'app-navbar',
     imports: [RouterLink],
     templateUrl: './navbar.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {

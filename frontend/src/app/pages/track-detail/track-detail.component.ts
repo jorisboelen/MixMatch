@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { LowerCasePipe } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -14,6 +14,7 @@ import { PlaylistItemModel } from '../../models';
     selector: 'app-track-detail',
     imports: [LowerCasePipe, TrackTableComponent, RouterLink],
     templateUrl: './track-detail.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './track-detail.component.css'
 })
 export class TrackDetailComponent {
